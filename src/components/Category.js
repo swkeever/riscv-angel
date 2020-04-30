@@ -15,17 +15,13 @@ const Category = ({ registers, name }) => {
   };
 
   if (!showButton) {
-    return (
-      <div>
-        <RegisterCategory regName={name} />
-      </div>
-    );
+    return (<RegisterCategory regName={name} />);
   }
   return (
-    <div>
+    <>
       <RegisterCategory regName={name} />
       {registers}
-    </div>
+    </>
   );
 };
 
