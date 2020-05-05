@@ -16,7 +16,7 @@
     "lint:all": "./node_modules/.bin/eslint --no-error-on-unmatched-pattern src",
     "lint:fix": "./node_modules/.bin/eslint --no-error-on-unmatched-pattern --fix",
     "lint:fix-all": "./node_modules/.bin/eslint --no-error-on-unmatched-pattern --fix src",
-    "kill:8080": "sudo kill -9 `sudo lsof -t -i:8080`"
+    "kill:3000": "sudo kill -9 `sudo lsof -t -i:3000`"
   },
   "repository": {
     "type": "git",
