@@ -603,17 +603,17 @@ Terminal.bindCopy = function(document) {
 
 Terminal.fixIpad = function(document) {
   var textarea = document.createElement('textarea');
-  textarea.style.position = 'absolute';
-  textarea.style.left = '-32000px';
-  textarea.style.top = '-32000px';
-  textarea.style.width = '0px';
-  textarea.style.height = '0px';
-  textarea.style.opacity = '0';
-  textarea.style.backgroundColor = 'transparent';
-  textarea.style.borderStyle = 'none';
-  textarea.style.outlineStyle = 'none';
-  textarea.autocapitalize='none';
-  textarea.autocorrect='off';
+  // textarea.style.position = 'absolute';
+  // textarea.style.left = '-32000px';
+  // textarea.style.top = '-32000px';
+  // textarea.style.width = '0px';
+  // textarea.style.height = '0px';
+  // textarea.style.opacity = '0';
+  // textarea.style.backgroundColor = 'transparent';
+  // textarea.style.borderStyle = 'none';
+  // textarea.style.outlineStyle = 'none';
+  // textarea.autocapitalize='none';
+  // textarea.autocorrect='off';
 
   document.getElementsByTagName('body')[0].appendChild(textarea);
 
@@ -641,12 +641,12 @@ Terminal.insertStyle = function(document, bg, fg) {
   // textContent doesn't work well with IE for <style> elements.
   style.innerHTML = ''
     + '.terminal {\n'
-    + '  float: left;\n'
-    + '  border: ' + bg + ' solid 5px;\n'
-   + '  font-family: "DejaVu Sans Mono", "Liberation Mono", monospace;\n'
-   + '  font-size: 11px;\n'
-    + '  color: ' + fg + ';\n'
-    + '  background: ' + bg + ';\n'
+    // + '  float: left;\n'
+    // + '  border: ' + bg + ' solid 5px;\n'
+  //  + '  font-family: "DejaVu Sans Mono", "Liberation Mono", monospace;\n'
+  //  + '  font-size: 11px;\n'
+    // + '  color: ' + fg + ';\n'
+    // + '  background: ' + bg + ';\n'
     + '}\n'
     + '\n'
     + '.terminal-cursor {\n'
@@ -4714,15 +4714,16 @@ Terminal.prototype.getCopyTextarea = function(text) {
 
   if (!textarea) {
     textarea = document.createElement('textarea');
-    textarea.style.position = 'absolute';
-    textarea.style.left = '-32000px';
-    textarea.style.top = '-32000px';
-    textarea.style.width = '0px';
-    textarea.style.height = '0px';
-    textarea.style.opacity = '0';
-    textarea.style.backgroundColor = 'transparent';
-    textarea.style.borderStyle = 'none';
-    textarea.style.outlineStyle = 'none';
+    textarea.setAttribute('wrap', )
+    // textarea.style.position = 'absolute';
+    // textarea.style.left = '-32000px';
+    // textarea.style.top = '-32000px';
+    // textarea.style.width = '0px';
+    // textarea.style.height = '0px';
+    // textarea.style.opacity = '0';
+    // textarea.style.backgroundColor = 'transparent';
+    // textarea.style.borderStyle = 'none';
+    // textarea.style.outlineStyle = 'none';
 
     document.getElementsByTagName('body')[0].appendChild(textarea);
 
