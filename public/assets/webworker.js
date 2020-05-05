@@ -26,7 +26,7 @@ self.addEventListener(
     if (oEvent.data.type == 'r') {
       //continue running
       readTest.push('\n');
-      elfRunNextInst(null);
+      elfRunNextInst();
     } else if (oEvent.data.type == 'u') {
       // copy user input
       DAT = oEvent.data.inp;
@@ -36,12 +36,8 @@ self.addEventListener(
         for (var x = 0; x < DAT.length; x++) {
           readTest.push(DAT.charAt(x));
         }
-        console.log("readTest: ", readTest);
-        if (readTest[0] === '\r') {
-          console.log("fffff");
-        }
       }
-      elfRunNextInst(readTest);
+      elfRunNextInst();
     } else if (oEvent.data === 'fetchCpu') {
       sendCpuState();
     }

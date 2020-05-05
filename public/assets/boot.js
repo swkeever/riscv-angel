@@ -22,10 +22,6 @@ function runWorker() {
 function prepTerm() {
   term.open(document.getElementById('consoleBox'));
   term.handler = function a(indata2) {
-    console.log("am i here ", indata2);
-    if (indata2 === '\r') {
-      console.log("hell yea");
-    }
     myWorker.postMessage({ type: 'u', inp: indata2 });
   };
 }

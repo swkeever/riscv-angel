@@ -19,9 +19,7 @@ const RegisterPanel = ({ registers }) => {
   ));
 
   return (
-    <>
-      <RegMenu registers={registersAppended} />
-    </>
+    <RegMenu registers={registersAppended} />
   );
 };
 

@@ -4,50 +4,75 @@ import {
   getAllRegisters,
   getCalleeSaved,
   getCallerSaved,
-} from './helpers/RegMenuHelpers';
+} from './helpers/RegistersHelpers';
 
 const RegMenu = ({ registers }) => {
   const [filter, setFilter] = useState('all');
 
   const CurrentCategory = () => (
     (
-      <>
+      <div className="btn-group" role="group">
         <button type="submit" onClick={() => setFilter('callee-saved')}>
-          callee-saved
+          Callee-saved
         </button>
         <button type="submit" onClick={() => setFilter('caller-saved')}>
-          caller-saved
+          Caller-saved
         </button>
         <button type="submit" onClick={() => setFilter('all')}>
-          all
+          All
         </button>
-      </>
+      </div>
     )
   );
 
-  if (filter === 'all') {
-    return (
-      <>
-        <CurrentCategory />
-        {getAllRegisters(registers)}
-      </>
-    );
-  }
-  if (filter === 'callee-saved') {
-    return (
-      <>
-        <CurrentCategory />
-        {getCalleeSaved(registers)}
-      </>
-    );
+  switch (filter) {
+    case 'callee-saved':
+      return (
+        <>
+          <CurrentCategory />
+          {getCalleeSaved(registers)}
+        </>
+      );
+    case 'caller-saved':
+      return (
+        <>
+          <CurrentCategory />
+          {getCallerSaved(registers)}
+        </>
+      );
+    default:
+      return (
+        <>
+          <CurrentCategory />
+          {getAllRegisters(registers)}
+        </>
+      );
   }
 
-  return (
-    <>
-      <CurrentCategory />
-      {getCallerSaved(registers)}
-    </>
-  );
+
+  // if (filter === 'all') {
+  //   return (
+  //     <>
+  //       <CurrentCategory />
+  //       {getAllRegisters(registers)}
+  //     </>
+  //   );
+  // }
+  // if (filter === 'callee-saved') {
+  //   return (
+  //     <>
+  //       <CurrentCategory />
+  //       {getCalleeSaved(registers)}
+  //     </>
+  //   );
+  // }
+
+  // return (
+  //   <>
+  //     <CurrentCategory />
+  //     {getCallerSaved(registers)}
+  //   </>
+  // );
 };
 
 RegMenu.propTypes = {
