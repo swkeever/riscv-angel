@@ -30,8 +30,5 @@ const Arguments = {
 };
 
 export {
-  Pointers,
-  Temporary,
-  CalleeSaved,
-  Arguments,
+  Pointers, Temporary, CalleeSaved, Arguments,
 };
