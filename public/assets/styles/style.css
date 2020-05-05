@@ -1,0 +1,36 @@
+:root {
+  --shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  --darkest: rgba(0, 0, 0, 0.5);
+  --dark: rgba(0, 0, 0, 0.87);
+  --lightest: #FFFFFF;
+}
+
+body {
+  padding: 1em;
+  background: var(--dark);
+  font-family: Roboto;
+  color: var(--lightest);
+  display: grid;
+  grid-template-areas:
+    "t t r"
+    "t t r"
+    "a b r";
+  grid-gap: 1em;
+}
+
+.terminal {
+  padding: 10px;
+  grid-area: t;
+  box-shadow: var(--shadow);
+  background-color: var(--darkest) !important;
+}
+
+/* .terminal > div {
+  word-wrap: break-word;
+} */
+
+#react {
+  grid-area: r;
+  background: var(--darkest);
+  box-shadow: var(--shadow);
+}
