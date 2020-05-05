@@ -98,6 +98,8 @@ EventEmitter.prototype.once = function(type, listener) {
 };
 
 EventEmitter.prototype.emit = function(type) {
+  console.log("in emit: ", type);
+  console.log("array: ", !this._events[type]);
   if (!this._events[type]) return;
 
   var args = Array.prototype.slice.call(arguments, 1)
@@ -1402,6 +1404,7 @@ Terminal.prototype.scrollDisp = function(disp) {
 };
 
 Terminal.prototype.write = function(data) {
+  console.log("write: ", data);
   var l = data.length
     , i = 0
     , j
@@ -2622,12 +2625,15 @@ Terminal.prototype.keyDown = function(ev) {
     return cancel(ev);
   }
 
+  console.log("about to emit key: ", key);
+  console.log("about to emit ev: ", ev);
   this.emit('keydown', ev);
   this.emit('key', key, ev);
-
+  console.log("after emit");
   this.showCursor();
+  console.log("calling handler");
   this.handler(key);
-
+  console.log("after handler (?)");
   return cancel(ev);
 };
 
@@ -2684,6 +2690,7 @@ Terminal.prototype.keyPress = function(ev) {
 
 Terminal.prototype.send = function(data) {
   var self = this;
+  //console.log("send");
 
   if (!this.queue) {
     setTimeout(function() {
@@ -2895,6 +2902,7 @@ Terminal.prototype.is = function(term) {
 };
 
 Terminal.prototype.handler = function(data) {
+  console.log("data: ", data);
   this.emit('data', data);
 };
 

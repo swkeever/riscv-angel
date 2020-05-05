@@ -194,4 +194,6 @@ const registers = [
   },
 ];
 
-export default registers;
+const getRegisters = () => registers;
+
+export default getRegisters;

@@ -103,6 +103,7 @@ function loadElf(binfile, filename, filesList) {
 
     // start running program
     RISCV.pc = elf["e_entry"].getLowBits();
+    //console.log("here");
 
     // reset clock
     RISCV.reset_wall_clock();
@@ -174,7 +175,7 @@ function chainedFileLoader(binFile, filename, filesList) {
             cont = true;
             // now, run!
             while (cont) {
-                cont = elfRunNextInst();
+                cont = elfRunNextInst(null);
             }
             return;
         }

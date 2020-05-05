@@ -5,24 +5,30 @@ var readTest = [];
 var lastCharWritten = 0;
 
 // ASSUME GLOBAL ACCESS TO RISCV
-function elfRunNextInst() {
+function elfRunNextInst(command) {
     var instVal;
     var stopCount = 10000;
     var tryCount = 0;
+
+    if (command != null && command[0] === 'l') {
+        console.log("entered nextinstr");
+    }
 
     // fix MIPS count at boot and return from idle
     var lastTimeSlot = (new Date()).getTime();
 
     for (var i = 1; ; i++)  {
+       
         if (!(i & 0x1FFFFF)) {
             var ctime = (new Date()).getTime();
             postMessage({"type": "m", "d": 2097.152 / (ctime - lastTimeSlot)});
             lastTimeSlot = ctime;
         }
-
+        
         // handle special cases @ cpu_idle
         if (RISCV.pc == (0x80152b58|0)) {
             if (readTest.length) {
+                
                 if (readTest[0]  == 'THIS_IS_ESC') {
                     readTest[0] = String.fromCharCode(0x1b);
                     lastCharWritten = 1;
@@ -31,6 +37,7 @@ function elfRunNextInst() {
                 RISCV.priv_reg[PCR["CSR_STATUS"]["num"]] = RISCV.priv_reg[PCR["CSR_STATUS"]["num"]] | 0x40000000;
                 var InterruptException = new RISCVTrap("Host interrupt");
                 handle_trap(InterruptException);
+                
             } else {
                 // wait for user input
                 tryCount += 1;
@@ -42,17 +49,23 @@ function elfRunNextInst() {
                         stopCount = 200000;
                     } else {
                         stopCount = 10000;
+                        if (command != null && command[0] === '\r') {
+                            console.log("returning nextinstr");
+                        }
                         return false;
                     }
                 }
             }
         }
-
-
+        if (command != null && command[0] === 'l') {
+            console.log(RISCV.pc);
+        }
         // set last PC value for comparison
         //RISCV.oldpc = RISCV.pc;
-        
         instVal = RISCV.load_inst_from_mem(RISCV.pc);
+        if (command != null && command[0] === '\r') {
+            console.log(RISCV.pc, instVal);
+        }
         if (!RISCV.excpTrigg) {
             runInstruction(instVal); // , RISCV);
         }
