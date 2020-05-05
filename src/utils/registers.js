@@ -194,21 +194,4 @@ const registers = [
   },
 ];
 
-const getTemporaryRegisters = () => registers.filter((r) => r.abiName.startsWith('t'));
-
-const getCalleeSaved = () => registers.filter((r) => r.saver === 'Callee');
-
-const getCallerSaved = () => registers.filter((r) => r.saver === 'Caller');
-
-const getFunctionArguments = () => registers.filter((r) => r.abiName.startsWith('a'));
-
-const getPointers = () => registers.filter((r) => r.description.includes('pointer'));
-
-export {
-  registers,
-  getTemporaryRegisters,
-  getCalleeSaved,
-  getCallerSaved,
-  getFunctionArguments,
-  getPointers,
-};
+export default registers;
