@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 // import PropTypes from 'prop-types';
 import RegMenu from './RegMenu';
 import useCPU from '../hooks/use-cpu';
@@ -31,7 +30,5 @@ const RegisterPanel = () => {
 //     high_: PropTypes.number,
 //   })).isRequired,
 // };
-
-ReactDOM.render(<RegisterPanel />, document.querySelector('#registerPanel'));
 
 export default RegisterPanel;
