@@ -39,7 +39,6 @@ self.addEventListener(
       }
       elfRunNextInst();
     } else if (oEvent.data === 'fetchCpu') {
-      console.log("got fetchMessage");
       sendCpuState();
     }
   },
@@ -79,7 +78,6 @@ function runCodeC(userIn) {
 
 function updateCPU(){
   // do whatever you like here
-  console.log("uh");
   sendCpuState();
   setTimeout(updateCPU, 1000);
 }
