@@ -20,5 +20,6 @@ module.exports = {
     'no-console': 'off',
     'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }],
     'no-underscore-dangle': 'off',
+    'no-bitwise': 'off',
   },
 };
