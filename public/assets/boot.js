@@ -14,7 +14,7 @@ function runWorker() {
       term.write(String.fromCharCode(oEvent.data.d));
     } else if (oEvent.data.type === 'returnCpu') {
       myCpu = JSON.parse(oEvent.data.d);
-      // console.log('main thread setting myCpu');
+      console.log('main thread setting myCpu');
     }
   };
 }

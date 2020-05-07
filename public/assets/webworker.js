@@ -39,6 +39,7 @@ self.addEventListener(
       }
       elfRunNextInst();
     } else if (oEvent.data === 'fetchCpu') {
+      console.log("got fetchMessage");
       sendCpuState();
     }
   },
@@ -46,7 +47,9 @@ self.addEventListener(
 );
 
 function sendCpuState() {
-  // console.log('webworker responding fetchCpu request');
+  //console.log('webworker responding fetchCpu request');
+  // TODO: add a sendState method for each UI component?
+  //       only worried if the same state will be expressed in each method, due to threading issues
   const payload = {
     type: 'returnCpu',
     d: JSON.stringify({
@@ -70,7 +73,17 @@ function runCodeC(userIn) {
   handle_file_continue(filesList);
 
   RISCV = new CPU();
+
+  updateCPU();
 }
+
+function updateCPU(){
+  // do whatever you like here
+  console.log("uh");
+  sendCpuState();
+  setTimeout(updateCPU, 1000);
+}
+
 
 function handle_file_continue(filesList) {
   //document.getElementById("testresult").innerHTML = "ELF not loaded";
