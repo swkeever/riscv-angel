@@ -131,12 +131,14 @@ function runInstruction(raw) { //, RISCV) {
         // I-TYPE, opcode: 0b0010011
         case 0x13:
             var funct3 = inst.get_funct3();
+            RISCV.instruction_amounts['arithmetic'] = RISCV.instruction_amounts['arithmetic'] + 1;
             switch(funct3) {
                 
                 // ADDI
                 case 0x0:
                     RISCV.gen_reg[inst.get_rd()] = RISCV.gen_reg[inst.get_rs1()].add(signExtLT32_64(inst.get_I_imm()));
                     RISCV.pc += 4;
+                    //RISCV.instruction_amounts.set('arithmetic', RISCV.instruction_amounts.get('arithmetic') + 1);
                     break;
 
                 // SLLI                   
@@ -206,7 +208,7 @@ function runInstruction(raw) { //, RISCV) {
         // R-TYPE, opcode: 0b0110011
         case 0x33:
             var funct10 = (inst.get_funct7() << 3) | inst.get_funct3();
-
+            RISCV.instruction_amounts['arithmetic'] = RISCV.instruction_amounts['arithmetic'] + 1;
             switch(funct10) {
 
                 // ADD
@@ -510,6 +512,7 @@ function runInstruction(raw) { //, RISCV) {
         case 0x37:
             RISCV.gen_reg[inst.get_rd()] = signExtLT32_64(inst.get_U_imm());
             RISCV.pc += 4;
+            RISCV.instruction_amounts['arithmetic'] = RISCV.instruction_amounts['arithmetic'] + 1;
             break;
 
         // L-TYPE (AUIPC) - opcode: 0b0010111
@@ -519,17 +522,20 @@ function runInstruction(raw) { //, RISCV) {
                 RISCV.gen_reg[inst.get_rd()] = new Long(RISCV.gen_reg[inst.get_rd()].getLowBitsUnsigned(), 0x155);
             }
             RISCV.pc += 4;
+            RISCV.instruction_amounts['arithmetic'] = RISCV.instruction_amounts['arithmetic'] + 1;
             break;
 
         // J-TYPE (JAL) - opcode: 0b1101111
         case 0x6F:
             RISCV.gen_reg[inst.get_rd()] = signExtLT32_64(RISCV.pc + 4);
             RISCV.pc = (RISCV.pc|0) + inst.get_J_imm();
+            RISCV.instruction_amounts['controlTransfer'] = RISCV.instruction_amounts['controlTransfer'] + 1;
             break;
 
         // B-TYPE (Branches) - opcode: 0b1100011
         case 0x63:
             var funct3 = inst.get_funct3();
+            RISCV.instruction_amounts['controlTransfer'] = RISCV.instruction_amounts['controlTransfer'] + 1;
             switch(funct3) {
 
                 // BEQ
@@ -598,9 +604,11 @@ function runInstruction(raw) { //, RISCV) {
         // I-TYPES (JALR)
         case 0x67:
             var funct3 = inst.get_funct3();
+            RISCV.instruction_amounts['controlTransfer'] = RISCV.instruction_amounts['controlTransfer'] + 1;
             if (funct3 == 0x0) {
                 RISCV.gen_reg[inst.get_rd()] = signExtLT32_64(RISCV.pc + 4);
                 RISCV.pc = inst.get_I_imm() + (RISCV.gen_reg[inst.get_rs1()].getLowBits()|0);
+                RISCV.instruction_amounts['controlTransfer'] = RISCV.instruction_amounts['controlTransfer'] + 1;
             } else {
                 throw new RISCVTrap("Illegal Instruction");
             }
@@ -610,6 +618,7 @@ function runInstruction(raw) { //, RISCV) {
         // Loads
         case 0x3:
             var funct3 = inst.get_funct3();
+            RISCV.instruction_amounts['load'] = RISCV.instruction_amounts['load'] + 1;
             switch(funct3) {
 
                 // LB
@@ -712,6 +721,7 @@ function runInstruction(raw) { //, RISCV) {
         // Stores
         case 0x23:
             var funct3 = inst.get_funct3(); 
+            RISCV.instruction_amounts['store'] = RISCV.instruction_amounts['store'] + 1;
             switch(funct3) {
                 
                 // SB
@@ -778,6 +788,8 @@ function runInstruction(raw) { //, RISCV) {
         // FENCE instructions - NOPS for this imp
         case 0x0F:
             var funct3 = inst.get_funct3();
+            RISCV.instruction_amounts['memoryOrder'] = RISCV.instruction_amounts['memoryOrder'] + 1;
+
             if (funct3 == 0x1) {
                 // FENCE.I is no-op in this implementation
                 RISCV.pc += 4;

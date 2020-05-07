@@ -50,10 +50,16 @@ function sendCpuState() {
   const payload = {
     type: 'returnCpu',
     d: JSON.stringify({
-        registers: RISCV.gen_reg
+        registers: RISCV.gen_reg,
+        instruction_amounts: RISCV.instruction_amounts,
     }),
   };
   this.postMessage(payload);
+  RISCV.instruction_amounts['arithmetic'] = 0;
+  RISCV.instruction_amounts['controlTransfer'] = 0;
+  RISCV.instruction_amounts['store'] = 0;
+  RISCV.instruction_amounts['load'] = 0;
+  RISCV.instruction_amounts['memoryOrder'] = 0
 }
 
 function runCodeC(userIn) {

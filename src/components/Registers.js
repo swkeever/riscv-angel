@@ -12,6 +12,7 @@ const RegisterPanel = () => {
   if (!cpu) {
     return <h1>Loading...</h1>;
   }
+  console.log(cpu.instruction_amounts);
 
   const allRegisters = getRegisters();
 
