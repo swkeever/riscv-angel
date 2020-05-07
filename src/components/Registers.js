@@ -1,14 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// import Category from './Category';
 import RegMenu from './RegMenu';
-// import {
-//   Pointers,
-//   Temporary,
-//   CalleeSaved,
-//   Arguments,
-// } from '../utils/constants';
-
 import getRegisters from '../utils/registers';
 
 const RegisterPanel = ({ registers }) => {
@@ -19,7 +11,10 @@ const RegisterPanel = ({ registers }) => {
   ));
 
   return (
-    <RegMenu registers={registersAppended} />
+    <>
+      <h2 className="module-header">Registers</h2>
+      <RegMenu registers={registersAppended} />
+    </>
   );
 };
 
