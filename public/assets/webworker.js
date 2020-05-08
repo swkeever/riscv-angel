@@ -50,27 +50,46 @@ function sendCpuState() {
   // TODO: add a sendState method for each UI component?
   //       only worried if the same state will be expressed in each method, due to threading issues
   const instructionsArray = [];
+
+  // computes exponential rolling average
+  for (key in RISCV.curr_instructions) {
+    RISCV.instruction_amounts[key][1]++;
+    const currTotal = parseFloat(RISCV.instruction_amounts[key][1]);
+    RISCV.instruction_amounts[key][0] -= (RISCV.instruction_amounts[key][0] / currTotal);
+    RISCV.instruction_amounts[key][0] += (RISCV.curr_instructions[key] / currTotal);
+  }
+
+  // compute the total num of instructions
+  var total = 0;
+
   for (key in RISCV.instruction_amounts) {
     instructionsArray.push(
       {
         label: key,
-        value: RISCV.instruction_amounts[key]
+        value: RISCV.instruction_amounts[key][0]
       }
     );
+    total += RISCV.instruction_amounts[key][0];
   }
+
+
   const payload = {
     type: 'returnCpu',
     d: JSON.stringify({
         registers: RISCV.gen_reg,
         instruction_amounts: instructionsArray,
+        total: total
     }),
   };
+
   this.postMessage(payload);
-  RISCV.instruction_amounts['arithmetic'] = 0;
-  RISCV.instruction_amounts['controlTransfer'] = 0;
-  RISCV.instruction_amounts['store'] = 0;
-  RISCV.instruction_amounts['load'] = 0;
-  RISCV.instruction_amounts['memoryOrder'] = 0
+  
+  // reset the number of each instructions for the next clock cycle
+  RISCV.curr_instructions[RISCV.keyMath] = 0;
+  RISCV.curr_instructions[RISCV.keyJump] = 0;
+  RISCV.curr_instructions[RISCV.keyStore] = 0;
+  RISCV.curr_instructions[RISCV.keyLoad] = 0;
+  RISCV.curr_instructions[RISCV.keyMem] = 0
 }
 
 function runCodeC(userIn) {

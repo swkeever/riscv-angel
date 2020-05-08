@@ -1,6 +1,5 @@
 import React from 'react';
-//import useInterval from '../hooks/use-interval';
-import SimplePieChart from './PieChart';
+import SimplePieChart from './SimplePieChart';
 import useCPU from '../hooks/use-cpu';
 
 const InstructionDisplay = () => {
@@ -11,8 +10,7 @@ const InstructionDisplay = () => {
   }
   console.log(cpu.instruction_amounts);
 
-  // return <h1> HELLO</h1>;
-  return <SimplePieChart data={cpu.instruction_amounts}/>;
+  return <SimplePieChart data={cpu.instruction_amounts} total={cpu.total}/>;
 };
 
 export default InstructionDisplay;

@@ -82,12 +82,22 @@ function CPU(memamt) {
     this.keyLoad = 'load';
     this.keyMem = 'memoryOrder';
 
-    this.instruction_amounts = {
+    // stores the current num of instructions in one clock cycle
+    this.curr_instructions = {
         'arithmetic' : 0,
         'controlTransfer' : 0,
         'store' : 0,
         'load' : 0,
         'memoryOrder' : 0
+    }
+
+    // stores the exponential rolling average of each type of instr
+    this.instruction_amounts = {
+        'arithmetic' : [0, 0],
+        'controlTransfer' : [0, 0],
+        'store' : [0, 0],
+        'load' : [0, 0],
+        'memoryOrder' : [0, 0]
     }
 
     function reset_wall_clock() {

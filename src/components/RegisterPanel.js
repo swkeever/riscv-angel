@@ -1,8 +1,5 @@
 import React from 'react';
 import RegMenu from './RegMenu';
-//import useInterval from '../hooks/use-interval';
-
-
 import getRegisters from '../utils/registers';
 import useCPU from '../hooks/use-cpu';
 
@@ -20,7 +17,10 @@ const RegisterPanel = () => {
   ));
 
   return (
-    <RegMenu registers={registersAppended} />
+    <>
+      <h2 className="module-header">Registers</h2>
+      <RegMenu registers={registersAppended} />
+    </>
   );
 };
 

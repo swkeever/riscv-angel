@@ -137,7 +137,7 @@ function runInstruction(raw) { //, RISCV) {
         // I-TYPE, opcode: 0b0010011
         case 0x13:
             var funct3 = ((raw >>> 12) & 0x7);
-            RISCV.instruction_amounts[RISCV.keyMath]++;
+            RISCV.curr_instructions[RISCV.keyMath]++;
             switch(funct3) {
                 
                 // ADDI
@@ -213,7 +213,7 @@ function runInstruction(raw) { //, RISCV) {
         // R-TYPE, opcode: 0b0110011
         case 0x33:
             var funct10 = (((raw >>> 25) & 0x7F) << 3) | ((raw >>> 12) & 0x7);
-            RISCV.instruction_amounts[RISCV.keyMath]++;
+            RISCV.curr_instructions[RISCV.keyMath]++;
             switch(funct10) {
 
                 // ADD
@@ -517,7 +517,7 @@ function runInstruction(raw) { //, RISCV) {
         case 0x37:
             RISCV.gen_reg[((raw >>> 7) & 0x1F)] = signExtLT32_64(((raw & 0xFFFFF000)));
             RISCV.pc += 4;
-            RISCV.instruction_amounts[RISCV.keyMath]++;
+            RISCV.curr_instructions[RISCV.keyMath]++;
             break;
 
         // L-TYPE (AUIPC) - opcode: 0b0010111
@@ -527,20 +527,20 @@ function runInstruction(raw) { //, RISCV) {
                 RISCV.gen_reg[((raw >>> 7) & 0x1F)] = new Long(RISCV.gen_reg[((raw >>> 7) & 0x1F)].getLowBitsUnsigned(), 0x155);
             }
             RISCV.pc += 4;
-            RISCV.instruction_amounts[RISCV.keyMath]++;
+            RISCV.curr_instructions[RISCV.keyMath]++;
             break;
 
         // J-TYPE (JAL) - opcode: 0b1101111
         case 0x6F:
             RISCV.gen_reg[((raw >>> 7) & 0x1F)] = signExtLT32_64(RISCV.pc + 4);
             RISCV.pc = (RISCV.pc|0) + (((raw >> 20) & 0xFFF007FE) | ((raw >>> 9) & 0x00000800) | (raw & 0x000FF000));
-            RISCV.instruction_amounts[RISCV.keyJump]++;
+            RISCV.curr_instructions[RISCV.keyJump]++;
             break;
 
         // B-TYPE (Branches) - opcode: 0b1100011
         case 0x63:
             var funct3 = ((raw >>> 12) & 0x7);
-            RISCV.instruction_amounts[RISCV.keyJump]++;
+            RISCV.curr_instructions[RISCV.keyJump]++;
             switch(funct3) {
 
                 // BEQ
@@ -609,7 +609,7 @@ function runInstruction(raw) { //, RISCV) {
         // I-TYPES (JALR)
         case 0x67:
             var funct3 = ((raw >>> 12) & 0x7);
-            RISCV.instruction_amounts[RISCV.keyJump]++;
+            RISCV.curr_instructions[RISCV.keyJump]++;
             if (funct3 == 0x0) {
                 RISCV.gen_reg[((raw >>> 7) & 0x1F)] = signExtLT32_64(RISCV.pc + 4);
                 RISCV.pc = ((raw >> 20)) + (RISCV.gen_reg[((raw >>> 15) & 0x1F)].getLowBits()|0);
@@ -622,7 +622,7 @@ function runInstruction(raw) { //, RISCV) {
         // Loads
         case 0x3:
             var funct3 = ((raw >>> 12) & 0x7);
-            RISCV.instruction_amounts[RISCV.keyLoad]++;
+            RISCV.curr_instructions[RISCV.keyLoad]++;
             switch(funct3) {
 
                 // LB
@@ -725,7 +725,7 @@ function runInstruction(raw) { //, RISCV) {
         // Stores
         case 0x23:
             var funct3 = ((raw >>> 12) & 0x7); 
-            RISCV.instruction_amounts[RISCV.keyStore];
+            RISCV.curr_instructions[RISCV.keyStore]++;
             switch(funct3) {
                 
                 // SB
@@ -792,7 +792,7 @@ function runInstruction(raw) { //, RISCV) {
         // FENCE instructions - NOPS for this imp
         case 0x0F:
             var funct3 = ((raw >>> 12) & 0x7);
-            RISCV.instruction_amounts[RISCV.keyMem];//
+            RISCV.curr_instructions[RISCV.keyMem]++;//
 
             if (funct3 == 0x1) {
                 // FENCE.I is no-op in this implementation
