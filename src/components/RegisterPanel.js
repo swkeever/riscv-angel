@@ -1,24 +1,17 @@
-import React, { useState } from 'react';
-// import PropTypes from 'prop-types';
+import React from 'react';
 import RegMenu from './RegMenu';
-// import useCPU from '../hooks/use-cpu';
-import useInterval from '../hooks/use-interval';
+//import useInterval from '../hooks/use-interval';
 
 
 import getRegisters from '../utils/registers';
+import useCPU from '../hooks/use-cpu';
 
 const RegisterPanel = () => {
-  const [cpu, setCpu] = useState(null);
-
-  useInterval(() => {
-    setCpu(window.myCpu);
-  }, 1000);
+  const cpu = useCPU();
 
   if (!cpu) {
     return <h1>Loading...</h1>;
   }
-
-  console.log(cpu.instruction_amounts);
 
   const allRegisters = getRegisters();
 

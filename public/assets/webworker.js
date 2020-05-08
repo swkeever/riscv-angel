@@ -49,11 +49,20 @@ function sendCpuState() {
   //console.log('webworker responding fetchCpu request');
   // TODO: add a sendState method for each UI component?
   //       only worried if the same state will be expressed in each method, due to threading issues
+  const instructionsArray = [];
+  for (key in RISCV.instruction_amounts) {
+    instructionsArray.push(
+      {
+        label: key,
+        value: RISCV.instruction_amounts[key]
+      }
+    );
+  }
   const payload = {
     type: 'returnCpu',
     d: JSON.stringify({
         registers: RISCV.gen_reg,
-        instruction_amounts: RISCV.instruction_amounts,
+        instruction_amounts: instructionsArray,
     }),
   };
   this.postMessage(payload);

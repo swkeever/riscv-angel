@@ -5,9 +5,6 @@ function useCPU() {
   const [cpu, setCpu] = useState(null);
 
   useInterval(() => {
-    if (window.myWorker) {
-      window.myWorker.postMessage('fetchCpu');
-    }
     setCpu(window.myCpu);
   }, 1000);
 

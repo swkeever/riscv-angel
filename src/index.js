@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import RegisterPanel from './components/RegisterPanel';
+import InstructionDisplay from './components/InstructionDisplay';
 
 // const App = () => {
 //   const cpu = useCPU();
@@ -20,3 +21,4 @@ import RegisterPanel from './components/RegisterPanel';
 // };
 
 ReactDOM.render(<RegisterPanel />, document.querySelector('#registerPanel'));
+ReactDOM.render(<InstructionDisplay />, document.querySelector('#instructionDisplay'));
