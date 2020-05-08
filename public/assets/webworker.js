@@ -54,14 +54,14 @@ function sendCpuState() {
   // computes exponential rolling average
   for (key in RISCV.curr_instructions) {
     RISCV.instruction_amounts[key][1]++;
-    const currTotal = parseFloat(RISCV.instruction_amounts[key][1]);
-    RISCV.instruction_amounts[key][0] -= (RISCV.instruction_amounts[key][0] / currTotal);
-    RISCV.instruction_amounts[key][0] += (RISCV.curr_instructions[key] / currTotal);
+    const currKeyTotal = parseFloat(RISCV.instruction_amounts[key][1]);
+    RISCV.instruction_amounts[key][0] -= (RISCV.instruction_amounts[key][0] / currKeyTotal);
+    RISCV.instruction_amounts[key][0] += (RISCV.curr_instructions[key] / currKeyTotal);
   }
 
-  // compute the total num of instructions
   var total = 0;
-
+  
+  // compute the total num of instructions and push the latest exponential rolling average
   for (key in RISCV.instruction_amounts) {
     instructionsArray.push(
       {

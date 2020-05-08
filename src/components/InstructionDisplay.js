@@ -10,7 +10,7 @@ const InstructionDisplay = () => {
   }
   console.log(cpu.instruction_amounts);
 
-  return <SimplePieChart data={cpu.instruction_amounts} total={cpu.total}/>;
+  return <SimplePieChart data={cpu.instruction_amounts} total={cpu.total} />;
 };
 
 export default InstructionDisplay;

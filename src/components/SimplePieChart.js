@@ -1,39 +1,72 @@
 import * as React from 'react';
 import * as d3 from 'd3';
+import PropTypes from 'prop-types';
 
-// const data = [1, 2, 3, 4];
 
 const SimplePiechart = ({ data, total }) => {
   const height = 400;
   const width = 400;
 
-  const pie = d3.pie().value((d) => d.value) (data);
+  // this is so that the browser doesnt show the labels of each slice
+  // in the pie chart when the values of the piechart data array are all 0's
+  if (data.filter((ele) => ele.value === 0).length > 0) {
+    return <h1> Waiting for valid pie chart...</h1>;
+  }
+
+  // defines what to mathematically use to display the data
+  const pie = d3.pie().value((d) => d.value)(data);
 
   return (
     <svg height={height} width={width}>
       <g transform={`translate(${width / 2}, ${height / 2})`}>
-        <Slice pie={pie} total={total}/>
+        <Slice pie={pie} total={total} />
       </g>
     </svg>
   );
 };
 
 const Slice = ({ pie, total }) => {
+  // some boilerplate stuff... not too sure how it works
   const arc = d3.arc().innerRadius(0).outerRadius(200);
   const interpolate = d3.interpolate('#eeaf79', '#bc3358');
 
+  // returns an array of <g> elements where it contains the slices, and labels for each slice.
   return pie.map((slice, index) => {
     console.log(slice, index);
     const sliceColor = interpolate(index / (pie.length - 1));
+    // have to add a new line for each element in the <text> tag for ESlint
+    // displays a percentage for each instruction, where the percentage is
+    // num of that instr divided by total instr
     return (
-      <g>
-        <path key={index.toString()} d={arc(slice)} fill={sliceColor} />
-        <text transform= {`translate(${arc.centroid(slice)})`} textAnchor="middle" fill="white"> 
-          {slice.data.label} {((slice.data.value / parseFloat(total)) * 100).toFixed(2)} 
+      <g key={`${index.toString()}`}>
+        <path key={`${slice.data.label}value`} d={arc(slice)} fill={sliceColor} />
+        <text
+          key={`${slice.data.label}label`}
+          transform={`translate(${arc.centroid(slice)})`}
+          textAnchor="middle"
+          fill="white"
+        >
+          {slice.data.label}
+          :
+          {((slice.data.value / parseFloat(total)) * 100).toFixed(2)}
+          %
         </text>
       </g>
     );
   });
+};
+
+SimplePiechart.propTypes = {
+  data: PropTypes.arrayOf(PropTypes.shape({
+    label: PropTypes.string,
+    value: PropTypes.number,
+  })).isRequired,
+  total: PropTypes.number.isRequired,
+};
+
+Slice.propTypes = {
+  pie: PropTypes.arrayOf(PropTypes.object).isRequired,
+  total: PropTypes.number,
 };
 
 export default SimplePiechart;

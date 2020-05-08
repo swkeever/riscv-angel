@@ -792,7 +792,7 @@ function runInstruction(raw) { //, RISCV) {
         // FENCE instructions - NOPS for this imp
         case 0x0F:
             var funct3 = ((raw >>> 12) & 0x7);
-            RISCV.curr_instructions[RISCV.keyMem]++;//
+            RISCV.curr_instructions[RISCV.keyMem]++;
 
             if (funct3 == 0x1) {
                 // FENCE.I is no-op in this implementation
