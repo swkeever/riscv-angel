@@ -38,9 +38,7 @@
     Ubuntu,
     Cantarell,
     Helvetica Neue;
-  ;
-  --font-mono: 'Roboto Mono',
-    monospace;
+  --font-mono: 'Roboto Mono', monospace;
   font-family: var(--font);
 
   /* spacing and sizing system */
