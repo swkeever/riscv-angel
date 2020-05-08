@@ -76,13 +76,11 @@ function CPU(memamt) {
     var start = new Date();
     this.priv_reg[PCR["CSR_TIME"]["num"]] = Long.fromNumber(start.getTime());
 
-    // map of instruction types -> amounts
-    // this.instruction_amounts = new Map();
-    // this.instruction_amounts.set('arithmetic', 0);
-    // this.instruction_amounts.set('controlTransfer', 0);
-    // this.instruction_amounts.set('store', 0);
-    // this.instruction_amounts.set('load', 0);
-    // this.instruction_amounts.set('memoryOrder', 0);
+    this.keyMath = 'arithmetic';
+    this.keyJump = 'controlTransfer';
+    this.keyStore = 'store';
+    this.keyLoad = 'load';
+    this.keyMem = 'memoryOrder';
 
     this.instruction_amounts = {
         'arithmetic' : 0,

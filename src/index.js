@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import RegisterPanel from './components/Registers';
-// import useCPU from './hooks/use-cpu';
+import RegisterPanel from './components/RegisterPanel';
 
 // const App = () => {
 //   const cpu = useCPU();

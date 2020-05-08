@@ -77,7 +77,6 @@ function runCodeC(userIn) {
 }
 
 function updateCPU(){
-  // do whatever you like here
   sendCpuState();
   setTimeout(updateCPU, 1000);
 }
