@@ -76,6 +76,20 @@ function CPU(memamt) {
     var start = new Date();
     this.priv_reg[PCR["CSR_TIME"]["num"]] = Long.fromNumber(start.getTime());
 
+    this.keyMath = 'arithmetic';
+    this.keyJump = 'controlTransfer';
+    this.keyStore = 'store';
+    this.keyLoad = 'load';
+    this.keyMem = 'memoryOrder';
+
+    this.instruction_amounts = {
+        'arithmetic' : 0,
+        'controlTransfer' : 0,
+        'store' : 0,
+        'load' : 0,
+        'memoryOrder' : 0
+    }
+
     function reset_wall_clock() {
         // this should be called once, right before exec of first instruction
         var start = new Date();

@@ -1,23 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import useCPU from './hooks/use-cpu';
-import RegisterPanel from './components/Registers';
+import RegisterPanel from './components/RegisterPanel';
 
+// const App = () => {
+//   const cpu = useCPU();
 
-const App = () => {
-  const cpu = useCPU();
+//   if (!cpu) {
+//     return <h1>Loading...</h1>;
+//   }
 
-  if (!cpu) {
-    return <h1>Loading...</h1>;
-  }
+//   console.log(cpu);
 
-  console.log(cpu);
+//   return (
+//     <>
+//       <h1>hello world</h1>
+//       <RegisterPanel registers={cpu.registers} />
+//     </>
+//   );
+// };
 
-  return (
-    <>
-      <RegisterPanel registers={cpu.registers} />
-    </>
-  );
-};
-
-ReactDOM.render(<App />, document.querySelector('#react'));
+ReactDOM.render(<RegisterPanel />, document.querySelector('#registerPanel'));
