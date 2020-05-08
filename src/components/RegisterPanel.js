@@ -1,10 +1,6 @@
 import React, { useState } from 'react';
-// import PropTypes from 'prop-types';
 import RegMenu from './RegMenu';
-// import useCPU from '../hooks/use-cpu';
 import useInterval from '../hooks/use-interval';
-
-
 import getRegisters from '../utils/registers';
 
 const RegisterPanel = () => {
@@ -27,7 +23,10 @@ const RegisterPanel = () => {
   ));
 
   return (
-    <RegMenu registers={registersAppended} />
+    <>
+      <h2 className="module-header">Registers</h2>
+      <RegMenu registers={registersAppended} />
+    </>
   );
 };
 
