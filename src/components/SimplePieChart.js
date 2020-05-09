@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import * as d3 from 'd3';
 import PropTypes from 'prop-types';
 
@@ -10,7 +10,7 @@ const SimplePiechart = ({ data, total }) => {
   // this is so that the browser doesnt show the labels of each slice
   // in the pie chart when the values of the piechart data array are all 0's
   if (data.filter((ele) => ele.value === 0).length > 0) {
-    return <h1> Waiting for valid pie chart...</h1>;
+    return <p> Waiting for valid pie chart...</p>;
   }
 
   // defines what to mathematically use to display the data
@@ -34,9 +34,7 @@ const Slice = ({ pie, total }) => {
   return pie.map((slice, index) => {
     console.log(slice, index);
     const sliceColor = interpolate(index / (pie.length - 1));
-    // have to add a new line for each element in the <text> tag for ESlint
-    // displays a percentage for each instruction, where the percentage is
-    // num of that instr divided by total instr
+
     return (
       <g key={`${index.toString()}`}>
         <path key={`${slice.data.label}value`} d={arc(slice)} fill={sliceColor} />
@@ -46,10 +44,7 @@ const Slice = ({ pie, total }) => {
           textAnchor="middle"
           fill="white"
         >
-          {slice.data.label}
-          :
-          {((slice.data.value / parseFloat(total)) * 100).toFixed(2)}
-          %
+          {`${slice.data.label}: ${((slice.data.value / parseFloat(total)) * 100).toFixed(2)}%`}
         </text>
       </g>
     );

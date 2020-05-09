@@ -93,11 +93,26 @@ function CPU(memamt) {
 
     // stores the exponential rolling average of each type of instr
     this.instruction_amounts = {
-        'arithmetic' : [0, 0],
-        'controlTransfer' : [0, 0],
-        'store' : [0, 0],
-        'load' : [0, 0],
-        'memoryOrder' : [0, 0]
+        'arithmetic' : {
+            'average': 0,
+            'count': 0
+        },
+        'controlTransfer' : {
+            'average': 0,
+            'count': 0
+        },
+        'store' : {
+            'average': 0,
+            'count': 0
+        },
+        'load' : {
+            'average': 0,
+            'count': 0
+        },
+        'memoryOrder' : {
+            'average': 0,
+            'count': 0
+        }
     }
 
     function reset_wall_clock() {

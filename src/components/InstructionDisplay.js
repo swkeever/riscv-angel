@@ -6,9 +6,8 @@ const InstructionDisplay = () => {
   const cpu = useCPU();
 
   if (!cpu) {
-    return <h1>Loading...</h1>;
+    return <p>Loading...</p>;
   }
-  console.log(cpu.instruction_amounts);
 
   return <SimplePieChart data={cpu.instruction_amounts} total={cpu.total} />;
 };

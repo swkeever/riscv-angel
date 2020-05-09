@@ -53,10 +53,10 @@ function sendCpuState() {
 
   // computes exponential rolling average
   for (key in RISCV.curr_instructions) {
-    RISCV.instruction_amounts[key][1]++;
-    const currKeyTotal = parseFloat(RISCV.instruction_amounts[key][1]);
-    RISCV.instruction_amounts[key][0] -= (RISCV.instruction_amounts[key][0] / currKeyTotal);
-    RISCV.instruction_amounts[key][0] += (RISCV.curr_instructions[key] / currKeyTotal);
+    RISCV.instruction_amounts[key].count++;
+    const currKeyTotal = parseFloat(RISCV.instruction_amounts[key].count);
+    RISCV.instruction_amounts[key].average -= (RISCV.instruction_amounts[key].average / currKeyTotal);
+    RISCV.instruction_amounts[key].average += (RISCV.curr_instructions[key] / currKeyTotal);
   }
 
   var total = 0;
@@ -66,10 +66,10 @@ function sendCpuState() {
     instructionsArray.push(
       {
         label: key,
-        value: RISCV.instruction_amounts[key][0]
+        value: RISCV.instruction_amounts[key].average
       }
     );
-    total += RISCV.instruction_amounts[key][0];
+    total += RISCV.instruction_amounts[key].average;
   }
 
 
@@ -85,11 +85,11 @@ function sendCpuState() {
   this.postMessage(payload);
   
   // reset the number of each instructions for the next clock cycle
-  RISCV.curr_instructions[RISCV.keyMath] = 0;
-  RISCV.curr_instructions[RISCV.keyJump] = 0;
-  RISCV.curr_instructions[RISCV.keyStore] = 0;
-  RISCV.curr_instructions[RISCV.keyLoad] = 0;
-  RISCV.curr_instructions[RISCV.keyMem] = 0
+  RISCV.curr_instructions.arithmetic = 0;
+  RISCV.curr_instructions.controlTransfer = 0;
+  RISCV.curr_instructions.store = 0;
+  RISCV.curr_instructions.load = 0;
+  RISCV.curr_instructions.memoryOrder = 0;
 }
 
 function runCodeC(userIn) {
