@@ -51,12 +51,14 @@ function sendCpuState() {
   //       only worried if the same state will be expressed in each method, due to threading issues
   const instructionsArray = [];
 
-  // computes exponential rolling average
   for (key in RISCV.curr_instructions) {
+
+    // this computes a running average
     RISCV.instruction_amounts[key].count++;
     const currKeyTotal = parseFloat(RISCV.instruction_amounts[key].count);
-    RISCV.instruction_amounts[key].average -= (RISCV.instruction_amounts[key].average / currKeyTotal);
-    RISCV.instruction_amounts[key].average += (RISCV.curr_instructions[key] / currKeyTotal);
+    const downTug = RISCV.curr_instructions[key] - RISCV.instruction_amounts[key].average;
+    RISCV.instruction_amounts[key].average += (downTug / currKeyTotal);
+
   }
 
   var total = 0;
