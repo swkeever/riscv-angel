@@ -32,7 +32,7 @@ const Slice = ({ pie, total }) => {
 
   // returns an array of <g> elements where it contains the slices, and labels for each slice.
   return pie.map((slice, index) => {
-    console.log(slice, index);
+    //console.log(slice, index);
     const sliceColor = interpolate(index / (pie.length - 1));
 
     return (
