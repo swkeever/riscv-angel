@@ -14,7 +14,7 @@ const SimplePiechart = ({ data, total }) => {
   // this is so that the browser doesnt show the labels of each slice
   // in the pie chart when the values of the piechart data array are all 0's
   if (data.filter((ele) => ele.value === 0).length > 0) {
-    return null;
+    return <div className="loader">Loading...</div>;
   }
 
   // defines what to mathematically use to display the data

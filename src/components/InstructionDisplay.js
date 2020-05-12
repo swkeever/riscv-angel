@@ -6,7 +6,7 @@ const InstructionDisplay = () => {
   const cpu = useCPU();
 
   if (!cpu) {
-    return <p>Loading...</p>;
+    return <div className="loader">Loading...</div>;
   }
 
   return (

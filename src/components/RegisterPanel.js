@@ -7,7 +7,7 @@ const RegisterPanel = () => {
   const cpu = useCPU();
 
   if (!cpu) {
-    return <h1>Loading...</h1>;
+    return <div className="loader">Loading...</div>;
   }
 
   const allRegisters = getRegisters();
