@@ -13,7 +13,7 @@ const InstructionDisplay = () => {
   return (
     <>
       <h2 className="module-header">Instruction Ratios</h2>
-      <SimplePieChart data={cpu.instruction_amounts} total={cpu.total} />
+      <SimplePieChart data={cpu.instruction_amounts} total={cpu.totalInstructions} />
     </>
   );
 };

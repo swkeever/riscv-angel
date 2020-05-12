@@ -61,7 +61,7 @@ function sendCpuState() {
 
   }
 
-  var total = 0;
+  var totalInstructions = 0;
   
   // compute the total num of instructions and push the latest exponential rolling average
   for (key in RISCV.instruction_amounts) {
@@ -71,16 +71,27 @@ function sendCpuState() {
         value: RISCV.instruction_amounts[key].average
       }
     );
-    total += RISCV.instruction_amounts[key].average;
+    totalInstructions += RISCV.instruction_amounts[key].average;
   }
 
+  // compute num of nonzero words in memory
+  var num = 0;
+  for (const [index, element] of RISCV.memory.entries()) {
+    if (element != 0) {
+      num++;
+    }
+  }
+  console.log("totlaL ", RISCV.memory.length);
+  console.log("num: ", num);
 
   const payload = {
     type: 'returnCpu',
     d: JSON.stringify({
         registers: RISCV.gen_reg,
         instruction_amounts: instructionsArray,
-        total: total
+        totalInstructions: totalInstructions,
+        nonzeroMemoryTotal: num,
+        memoryTotal: RISCV.memory.length,
     }),
   };
 
