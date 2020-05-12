@@ -88,7 +88,7 @@ function sendCpuState() {
   
   // reset the number of each instructions for the next clock cycle
   RISCV.curr_instructions.arithmetic = 0;
-  RISCV.curr_instructions.controlTransfer = 0;
+  RISCV.curr_instructions.branch = 0;
   RISCV.curr_instructions.store = 0;
   RISCV.curr_instructions.load = 0;
   RISCV.curr_instructions.memoryOrder = 0;
