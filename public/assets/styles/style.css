@@ -204,6 +204,10 @@ g>path {
   box-shadow: var(--shadow-5);
 }
 
+tspan.inst-pie-name {
+  text-shadow: var(--shadow-1);
+}
+
 tspan.inst-pie-percent {
   fill: var(--color-p2);
 }

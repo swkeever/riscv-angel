@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 
 function getPercentageOf(slice, total) {
-  return Math.floor((slice.data.value / parseFloat(total)) * 100);
+  return (slice.data.value / parseFloat(total)) * 100;
 }
 
 const SimplePiechart = ({ data, total }) => {
@@ -35,19 +35,17 @@ const Slice = ({ pie, total }) => {
 
   // returns an array of <g> elements where it contains the slices, and labels for each slice.
   return pie
-    .filter((slice) => {
-      console.log(getPercentageOf(slice, total));
-      return getPercentageOf(slice, total) > 0;
-    })
+    .filter((slice) => Math.floor(getPercentageOf(slice, total)) > 0)
     .map((slice, index) => (
       <g className={`inst-pie-slice-${index}`} key={`${index.toString()}`}>
         <path key={`${slice.data.label}value`} d={arc(slice)} />
         <text
+          x="0"
           key={`${slice.data.label}label`}
           transform={`translate(${arc.centroid(slice)})`}
         >
-          <tspan>{slice.data.label}</tspan>
-          <tspan dx="2" className="inst-pie-percent">{`${getPercentageOf(slice, total)}%`}</tspan>
+          <tspan className="inst-pie-name">{slice.data.label}</tspan>
+          <tspan x="0" dy="1.2em" className="inst-pie-percent">{`${getPercentageOf(slice, total).toFixed(2)}%`}</tspan>
         </text>
       </g>
     ));
