@@ -9,7 +9,12 @@ const InstructionDisplay = () => {
     return <p>Loading...</p>;
   }
 
-  return <SimplePieChart data={cpu.instruction_amounts} total={cpu.total} />;
+  return (
+    <>
+      <h2 className="module-header">Instruction Ratios</h2>
+      <SimplePieChart data={cpu.instruction_amounts} total={cpu.total} />
+    </>
+  );
 };
 
 export default InstructionDisplay;

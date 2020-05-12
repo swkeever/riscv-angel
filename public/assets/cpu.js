@@ -77,7 +77,7 @@ function CPU(memamt) {
     this.priv_reg[PCR["CSR_TIME"]["num"]] = Long.fromNumber(start.getTime());
 
     this.keyMath = 'arithmetic';
-    this.keyJump = 'controlTransfer';
+    this.keyJump = 'branch';
     this.keyStore = 'store';
     this.keyLoad = 'load';
     this.keyMem = 'memoryOrder';
@@ -85,7 +85,7 @@ function CPU(memamt) {
     // stores the current num of instructions in one clock cycle
     this.curr_instructions = {
         'arithmetic' : 0,
-        'controlTransfer' : 0,
+        'branch' : 0,
         'store' : 0,
         'load' : 0,
         'memoryOrder' : 0
@@ -97,7 +97,7 @@ function CPU(memamt) {
             'average': 0,
             'count': 0
         },
-        'controlTransfer' : {
+        'branch' : {
             'average': 0,
             'count': 0
         },
