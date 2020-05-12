@@ -46,7 +46,13 @@ const Slice = ({ pie, total }) => {
           transform={`translate(${arc.centroid(slice)})`}
         >
           <tspan className="inst-pie-name">{slice.data.label}</tspan>
-          <tspan x="0" dy="1.2em" className="inst-pie-percent">{`${getPercentageOf(slice, total).toFixed(2)}%`}</tspan>
+          <tspan
+            x="0"
+            dy="1.2em"
+            className="inst-pie-percent"
+          >
+            {`${getPercentageOf(slice, total).toFixed(2)}%`}
+          </tspan>
         </text>
       </g>
     ));
