@@ -1,6 +1,7 @@
 import React from 'react';
 import * as d3 from 'd3';
 import PropTypes from 'prop-types';
+import Loader from './Loader';
 
 
 function getPercentageOf(slice, total) {
@@ -14,7 +15,7 @@ const SimplePiechart = ({ data, total }) => {
   // this is so that the browser doesnt show the labels of each slice
   // in the pie chart when the values of the piechart data array are all 0's
   if (data.filter((ele) => ele.value === 0).length > 0) {
-    return <div className="loader">Loading...</div>;
+    return <Loader />;
   }
 
   // defines what to mathematically use to display the data

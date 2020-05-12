@@ -1,12 +1,13 @@
 import React from 'react';
 import SimplePieChart from './SimplePieChart';
 import useCPU from '../hooks/use-cpu';
+import Loader from './Loader';
 
 const InstructionDisplay = () => {
   const cpu = useCPU();
 
   if (!cpu) {
-    return <div className="loader">Loading...</div>;
+    return <Loader />;
   }
 
   return (

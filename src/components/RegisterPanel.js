@@ -2,12 +2,13 @@ import React from 'react';
 import RegMenu from './RegMenu';
 import getRegisters from '../utils/registers';
 import useCPU from '../hooks/use-cpu';
+import Loader from './Loader';
 
 const RegisterPanel = () => {
   const cpu = useCPU();
 
   if (!cpu) {
-    return <div className="loader">Loading...</div>;
+    return <Loader />;
   }
 
   const allRegisters = getRegisters();
