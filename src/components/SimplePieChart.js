@@ -39,20 +39,18 @@ const Slice = ({ pie, total }) => {
       console.log(getPercentageOf(slice, total));
       return getPercentageOf(slice, total) > 0;
     })
-    .map((slice, index) => {
-      return (
-        <g className={`inst-pie-slice-${index}`} key={`${index.toString()}`}>
-          <path key={`${slice.data.label}value`} d={arc(slice)} />
-          <text
-            key={`${slice.data.label}label`}
-            transform={`translate(${arc.centroid(slice)})`}
-          >
-            <tspan>{slice.data.label}</tspan>
-            <tspan dx="2" className="inst-pie-percent">{`${getPercentageOf(slice, total)}%`}</tspan>
-          </text>
-        </g>
-      );
-    });
+    .map((slice, index) => (
+      <g className={`inst-pie-slice-${index}`} key={`${index.toString()}`}>
+        <path key={`${slice.data.label}value`} d={arc(slice)} />
+        <text
+          key={`${slice.data.label}label`}
+          transform={`translate(${arc.centroid(slice)})`}
+        >
+          <tspan>{slice.data.label}</tspan>
+          <tspan dx="2" className="inst-pie-percent">{`${getPercentageOf(slice, total)}%`}</tspan>
+        </text>
+      </g>
+    ));
 };
 
 SimplePiechart.propTypes = {
