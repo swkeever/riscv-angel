@@ -3,22 +3,42 @@ import PropTypes from 'prop-types';
 import { Line } from 'react-chartjs-2';
 import useInterval from '../hooks/use-interval';
 
+/* this line chart graphs the last 10 data points we've seen,
+and updates the lower and upper bound of the range to be equal
+to the min and max of this dataset, respectively. */
+const numData = 10;
+
 const MemoryGraph = ({ next }) => {
   const [numArray, addToNumArray] = useState([]);
+  const [min, setMin] = useState(0);
+  const [max, setMax] = useState(2500000);
+
+  const setRange = (newArr) => {
+    setMin(Math.min(...newArr));
+    setMax(Math.max(...newArr));
+  };
 
   useInterval(() => {
     // const answer = (parseFloat(next) / total) * 100
-    if (numArray.length === 10) {
+    console.log(next);
+    if (numArray.length === numData) {
       const temp = numArray.filter(((ele, i) => i !== 0));
-      addToNumArray(temp.concat(next));
+      const newArr = temp.concat(next);
+      setRange(newArr);
+      addToNumArray(newArr);
     } else {
-      addToNumArray(numArray.concat(next));
+      const newArr = numArray.concat(next);
+      setRange(newArr);
+      addToNumArray(newArr);
     }
   }, 1000);
 
   console.log(numArray);
   const data = {
-    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'd', 'e', 'f'],
+
+    // i want to come up with better label names
+    // these are also random style attributes which i copied, but the color does look nice
+    labels: ['10', '9', '8', '7', '6', '5', '4', '3', '2', '1'],
     datasets: [
       {
         label: 'My First dataset',
@@ -63,8 +83,8 @@ const MemoryGraph = ({ next }) => {
       yAxes: [{
         ticks: {
           beginAtZero: true,
-          min: 980000,
-          max: 990000,
+          min,
+          max,
         },
       }],
       xAxes: [{

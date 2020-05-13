@@ -3,9 +3,10 @@ import useCPU from '../hooks/use-cpu';
 import Loader from './Loader';
 import MemoryGraph from './MemoryGraph';
 
+// Honestly, we might think about getting rid of this component
+// its just a placeholder to store the graph, and potentially endian feature
 const MiscellaneousPanel = () => {
   const cpu = useCPU();
-  // console.log(numArray);
 
   if (!cpu) {
     return <Loader />;
@@ -15,9 +16,6 @@ const MiscellaneousPanel = () => {
 
   // make into component
   return (
-    // <p>
-    //   {`${cpu.nonzeroMemoryTotal} ${cpu.memoryTotal}`}
-    // </p>
     <MemoryGraph next={cpu.nonzeroMemoryTotal} />
   );
 };
