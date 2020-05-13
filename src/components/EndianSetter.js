@@ -9,8 +9,9 @@ const EndianSetter = () => {
     return <Loader />;
   }
 
-  return 
-
-}
+  return (
+    <p> lmao </p>
+  );
+};
 
 export default EndianSetter;

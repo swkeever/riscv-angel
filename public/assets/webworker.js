@@ -81,8 +81,8 @@ function sendCpuState() {
       num++;
     }
   }
-  console.log("totlaL ", RISCV.memory.length);
-  console.log("num: ", num);
+  // console.log("total ", RISCV.memory.length);
+  // console.log("num: ", num);
 
   const payload = {
     type: 'returnCpu',
