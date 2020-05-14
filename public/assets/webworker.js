@@ -7,6 +7,8 @@ goog.require('goog.math.Long');
 importScripts('./lib/javascript-biginteger/biginteger.js');
 Long = goog.math.Long;
 
+const CLOCK_CYCLE = 1000;
+
 importScripts(
   './devices/character.js',
   './lib/binfile/binfile.js',
@@ -46,7 +48,6 @@ self.addEventListener(
 );
 
 function sendCpuState() {
-  //console.log('webworker responding fetchCpu request');
   // TODO: add a sendState method for each UI component?
   //       only worried if the same state will be expressed in each method, due to threading issues
   const instructionsArray = [];
@@ -61,7 +62,7 @@ function sendCpuState() {
 
   }
 
-  var total = 0;
+  var totalInstructions = 0;
   
   // compute the total num of instructions and push the latest exponential rolling average
   for (key in RISCV.instruction_amounts) {
@@ -71,16 +72,25 @@ function sendCpuState() {
         value: RISCV.instruction_amounts[key].average
       }
     );
-    total += RISCV.instruction_amounts[key].average;
+    totalInstructions += RISCV.instruction_amounts[key].average;
   }
 
+  // compute num of nonzero words in memory
+  var num = 0;
+  for (const [index, element] of RISCV.memory.entries()) {
+    if (element != 0) {
+      num++;
+    }
+  }
 
   const payload = {
     type: 'returnCpu',
     d: JSON.stringify({
         registers: RISCV.gen_reg,
         instruction_amounts: instructionsArray,
-        total: total
+        totalInstructions: totalInstructions,
+        nonzeroMemoryTotal: num,
+        memoryTotal: RISCV.memory.length,
     }),
   };
 
@@ -108,7 +118,7 @@ function runCodeC(userIn) {
 
 function updateCPU(){
   sendCpuState();
-  setTimeout(updateCPU, 1000);
+  setTimeout(updateCPU, CLOCK_CYCLE);
 }
 
 
