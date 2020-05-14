@@ -72,7 +72,7 @@ const MemoryPanel = () => {
               ],
             },
           },
-        }),
+        })
       );
       // setCanvasDrawn(true);
     } else if (cpu && lineGraph) {
@@ -80,7 +80,7 @@ const MemoryPanel = () => {
       // we pass 0 to make it not animate when updating
       lineGraph.update(0);
     }
-  });
+  }, [cpu, lineGraph, chartRef, graphData]);
 
   // const setRange = (newArr) => {
   //   setMin(Math.min(...newArr));
