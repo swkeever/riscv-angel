@@ -1,10 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import RegisterPanel from './components/RegisterPanel';
-import InstructionDisplay from './components/InstructionDisplay';
-import MiscellaneousPanel from './components/MiscellaneousPanel';
-
+import InstructionPanel from './components/InstructionPanel';
+import MemoryPanel from './components/MemoryPanel';
 
 ReactDOM.render(<RegisterPanel />, document.querySelector('#registerPanel'));
-ReactDOM.render(<InstructionDisplay />, document.querySelector('#instructionDisplay'));
-ReactDOM.render(<MiscellaneousPanel />, document.querySelector('#miscellaneousPanel'));
+ReactDOM.render(<InstructionPanel />, document.querySelector('#instructionPanel'));
+ReactDOM.render(<MemoryPanel />, document.querySelector('#memoryPanel'));

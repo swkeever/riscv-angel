@@ -3,7 +3,7 @@ import SimplePieChart from './SimplePieChart';
 import useCPU from '../hooks/use-cpu';
 import Loader from './Loader';
 
-const InstructionDisplay = () => {
+const InstructionPanel = () => {
   const cpu = useCPU();
 
   if (!cpu) {
@@ -18,4 +18,4 @@ const InstructionDisplay = () => {
   );
 };
 
-export default InstructionDisplay;
+export default InstructionPanel;

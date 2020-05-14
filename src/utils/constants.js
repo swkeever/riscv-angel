@@ -29,6 +29,8 @@ const Arguments = {
   end: 18,
 };
 
+const CLOCK_CYCLE = 1000;
+
 export {
-  Pointers, Temporary, CalleeSaved, Arguments,
+  Pointers, Temporary, CalleeSaved, Arguments, CLOCK_CYCLE,
 };

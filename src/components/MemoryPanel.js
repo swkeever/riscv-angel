@@ -1,47 +1,55 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
+import React, { useState, useEffect } from 'react';
 import { Line } from 'react-chartjs-2';
-import useInterval from '../hooks/use-interval';
+import useCPU from '../hooks/use-cpu';
+import Loader from './Loader';
+
 
 /* this line chart graphs the last 10 data points we've seen,
 and updates the lower and upper bound of the range to be equal
 to the min and max of this dataset, respectively. */
 const numData = 10;
 
-const MemoryGraph = ({ next }) => {
-  const [numArray, addToNumArray] = useState([]);
+// seen from a console.log(cpu.totalMemory)
+const initialMemoryTotal = 2621440;
+
+const MemoryPanel = () => {
+  const [numArray, setNumArray] = useState([]);
   const [min, setMin] = useState(0);
-  const [max, setMax] = useState(2500000);
+  const [max, setMax] = useState(initialMemoryTotal);
+  const [lastSeenData, setLastSeenData] = useState([0]);
+  const cpu = useCPU();
 
   const setRange = (newArr) => {
     setMin(Math.min(...newArr));
     setMax(Math.max(...newArr));
   };
 
-  useInterval(() => {
-    // const answer = (parseFloat(next) / total) * 100
-    console.log(next);
-    if (numArray.length === numData) {
-      const temp = numArray.filter(((ele, i) => i !== 0));
-      const newArr = temp.concat(next);
-      setRange(newArr);
-      addToNumArray(newArr);
-    } else {
-      const newArr = numArray.concat(next);
-      setRange(newArr);
-      addToNumArray(newArr);
+  useEffect(() => {
+    if (cpu && lastSeenData !== cpu.nonzeroMemoryTotal) {
+      if (numArray.length === numData) {
+        const temp = numArray.filter(((ele, i) => i !== 0));
+        const newArr = temp.concat(cpu.nonzeroMemoryTotal);
+        setRange(newArr);
+        setNumArray(newArr);
+      } else {
+        const newArr = numArray.concat(cpu.nonzeroMemoryTotal);
+        setRange(newArr);
+        setNumArray(newArr);
+      }
+      setLastSeenData(cpu.nonzeroMemoryTotal);
     }
-  }, 1000);
+  }, [cpu, numArray, lastSeenData]);
 
-  console.log(numArray);
+  if (!cpu) {
+    return <Loader />;
+  }
+
   const data = {
 
-    // i want to come up with better label names
-    // these are also random style attributes which i copied, but the color does look nice
     labels: ['10', '9', '8', '7', '6', '5', '4', '3', '2', '1'],
     datasets: [
       {
-        label: 'My First dataset',
+        label: 'Number of Nonzero Words',
         fill: false,
         lineTension: 0.1,
         backgroundColor: 'rgba(75,192,192,0.4)',
@@ -99,8 +107,5 @@ const MemoryGraph = ({ next }) => {
   return <Line data={data} options={chartOptions} />;
 };
 
-MemoryGraph.propTypes = {
-  next: PropTypes.number.isRequired,
-};
 
-export default MemoryGraph;
+export default MemoryPanel;

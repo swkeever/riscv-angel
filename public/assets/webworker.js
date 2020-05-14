@@ -7,6 +7,8 @@ goog.require('goog.math.Long');
 importScripts('./lib/javascript-biginteger/biginteger.js');
 Long = goog.math.Long;
 
+const CLOCK_CYCLE = 1000;
+
 importScripts(
   './devices/character.js',
   './lib/binfile/binfile.js',
@@ -46,7 +48,6 @@ self.addEventListener(
 );
 
 function sendCpuState() {
-  //console.log('webworker responding fetchCpu request');
   // TODO: add a sendState method for each UI component?
   //       only worried if the same state will be expressed in each method, due to threading issues
   const instructionsArray = [];
@@ -81,8 +82,6 @@ function sendCpuState() {
       num++;
     }
   }
-  // console.log("total ", RISCV.memory.length);
-  // console.log("num: ", num);
 
   const payload = {
     type: 'returnCpu',
@@ -119,7 +118,7 @@ function runCodeC(userIn) {
 
 function updateCPU(){
   sendCpuState();
-  setTimeout(updateCPU, 1000);
+  setTimeout(updateCPU, CLOCK_CYCLE);
 }
 
 
