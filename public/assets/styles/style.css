@@ -79,15 +79,19 @@
 }
 
 body {
-  padding: var(--sz-9);
   background: var(--color-g8);
   font-family: var(--font);
   color: var(--color-g1);
+  padding: var(--sz-7);
   display: grid;
+  align-content: space-around;
+  justify-content: center;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: auto;
   grid-template-areas:
     "t t r"
     "t t r"
-    "a b r";
+    "i m r";
   grid-gap: var(--sz-9);
 }
 
@@ -98,6 +102,23 @@ body {
   background-color: var(--color-g9) !important;
   font-family: var(--font-mono);
 }
+
+/* 
+*************************
+MEMORY PANEL
+*************************
+*/
+#memoryPanel {
+  grid-area: m;
+}
+
+.mem-graph {
+  background-color: var(--color-g9);
+  box-shadow: var(--shadow-2);
+  padding: var(--sz-7) var(--sz-5);
+  position: relative;
+}
+
 
 /******************************
 REGISTER PANEL
@@ -188,7 +209,7 @@ INSTRUCTION PANEL
 *************************
 */
 #instructionDisplay {
-  grid-area: a;
+  grid-area: i;
 }
 
 text>tspan {

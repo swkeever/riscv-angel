@@ -3,6 +3,7 @@ import RegMenu from './RegMenu';
 import getRegisters from '../utils/registers';
 import useCPU from '../hooks/use-cpu';
 import Loader from './Loader';
+import ModuleHeader from './ModuleHeader';
 
 const RegisterPanel = () => {
   const cpu = useCPU();
@@ -19,7 +20,7 @@ const RegisterPanel = () => {
 
   return (
     <>
-      <h2 className="module-header">Registers</h2>
+      <ModuleHeader title="Registers" />
       <RegMenu registers={registersAppended} />
     </>
   );
