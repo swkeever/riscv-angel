@@ -72,7 +72,7 @@ const MemoryPanel = () => {
               ],
             },
           },
-        })
+        }),
       );
       // setCanvasDrawn(true);
     } else if (cpu && lineGraph) {
