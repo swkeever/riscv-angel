@@ -12,7 +12,7 @@ Chart.defaults.global.defaultFontSize = parseInt(styles.sz1, 10);
 /* this line chart graphs the last 10 data points we've seen,
 and updates the lower and upper bound of the range to be equal
 to the min and max of this dataset, respectively. */
-const numData = 10;
+const numData = 5;
 
 // seen from a console.log(cpu.totalMemory)
 // const initialMemoryTotal = 2621440;
