@@ -95,9 +95,7 @@ function sendCpuState() {
   if ((prevDump != null) && !hasUpdated(payloadData)) {
     return;
   }
-  console.log("new batch of data");
-  console.log(payloadData);
-
+  
   const payload = {
     type: 'returnCpu',
     d: JSON.stringify(payloadData),
