@@ -147,10 +147,6 @@ function hasUpdated(payloadData) {
     return true;
   }
 
-  // if (prevDump.totalInstructions != payloadData.totalInstructions) {
-  //   return true;
-  // }
-
   for (var i = 0; i < prevDump.registers.length; i++) {
     if (prevDump.registers[i].toNumber() != payloadData.registers[i].toNumber()) {
       return true;
