@@ -29,7 +29,7 @@ const Arguments = {
   end: 18,
 };
 
-const CLOCK_CYCLE = 1000;
+const CLOCK_CYCLE = 125;
 
 export {
   Pointers, Temporary, CalleeSaved, Arguments, CLOCK_CYCLE,

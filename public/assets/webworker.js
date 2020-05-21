@@ -7,7 +7,9 @@ goog.require('goog.math.Long');
 importScripts('./lib/javascript-biginteger/biginteger.js');
 Long = goog.math.Long;
 
-const CLOCK_CYCLE = 1000;
+const CLOCK_CYCLE = 500;
+
+let prevDump = null;
 
 importScripts(
   './devices/character.js',
@@ -29,6 +31,7 @@ self.addEventListener(
       //continue running
       readTest.push('\n');
       elfRunNextInst();
+      sendCpuState();
     } else if (oEvent.data.type == 'u') {
       // copy user input
       DAT = oEvent.data.inp;
@@ -40,7 +43,6 @@ self.addEventListener(
         }
       }
       elfRunNextInst();
-    } else if (oEvent.data === 'fetchCpu') {
       sendCpuState();
     }
   },
@@ -48,8 +50,6 @@ self.addEventListener(
 );
 
 function sendCpuState() {
-  // TODO: add a sendState method for each UI component?
-  //       only worried if the same state will be expressed in each method, due to threading issues
   const instructionsArray = [];
 
   for (key in RISCV.curr_instructions) {
@@ -64,7 +64,7 @@ function sendCpuState() {
 
   var totalInstructions = 0;
   
-  // compute the total num of instructions and push the latest exponential rolling average
+  // compute the total num of instructions and push the latest running average
   for (key in RISCV.instruction_amounts) {
     instructionsArray.push(
       {
@@ -83,18 +83,33 @@ function sendCpuState() {
     }
   }
 
+  const payloadData = {
+    registers: RISCV.gen_reg,
+    instruction_amounts: instructionsArray,
+    totalInstructions: totalInstructions,
+    nonzeroMemoryTotal: num,
+    memoryTotal: RISCV.memory.length,
+  };
+
+  // short-circuiting with !prevDump wasnt working
+  if ((prevDump != null) && !hasUpdated(payloadData)) {
+    return;
+  }
+  
   const payload = {
     type: 'returnCpu',
-    d: JSON.stringify({
-        registers: RISCV.gen_reg,
-        instruction_amounts: instructionsArray,
-        totalInstructions: totalInstructions,
-        nonzeroMemoryTotal: num,
-        memoryTotal: RISCV.memory.length,
-    }),
+    d: JSON.stringify(payloadData),
   };
 
   this.postMessage(payload);
+  
+  prevDump = {
+    registers: RISCV.gen_reg,
+    instruction_amounts: instructionsArray,
+    totalInstructions: totalInstructions,
+    nonzeroMemoryTotal: num,
+    memoryTotal: RISCV.memory.length,
+  };
   
   // reset the number of each instructions for the next clock cycle
   RISCV.curr_instructions.arithmetic = 0;
@@ -113,12 +128,30 @@ function runCodeC(userIn) {
 
   RISCV = new CPU();
 
-  updateCPU();
+  // initial
+  sendCpuState();
+  
+  // keeping this to remember its called here.
+  // updateCPU();
 }
 
-function updateCPU(){
+function updateCPU() {
   sendCpuState();
   setTimeout(updateCPU, CLOCK_CYCLE);
+}
+
+function hasUpdated(payloadData) {
+  if (prevDump.nonzeroMemoryTotal != payloadData.nonzeroMemoryTotal) {
+    return true;
+  }
+
+  for (var i = 0; i < prevDump.registers.length; i++) {
+    if (prevDump.registers[i].toNumber() != payloadData.registers[i].toNumber()) {
+      return true;
+    }
+  }
+
+  return false;
 }
 
 
