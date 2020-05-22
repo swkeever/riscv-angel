@@ -4,8 +4,6 @@ import RegisterPanel from './components/RegisterPanel';
 import InstructionPanel from './components/InstructionPanel';
 import MemoryPanel from './components/MemoryPanel';
 
-console.log('hi');
-
 ReactDOM.render(<RegisterPanel />, document.querySelector('#registerPanel'));
 ReactDOM.render(
   <InstructionPanel />,
