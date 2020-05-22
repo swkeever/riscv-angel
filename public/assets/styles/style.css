@@ -119,7 +119,6 @@ MEMORY PANEL
   position: relative;
 }
 
-
 /******************************
 REGISTER PANEL
 *******************************/
@@ -192,8 +191,6 @@ li.register-row:last-child {
   padding-bottom: var(--sz-1);
 }
 
-
-
 li>span.register-abi {
   margin-left: var(--sz-1);
   color: var(--color-g4);
@@ -211,7 +208,6 @@ li>span.register-disabled {
   color: var(--color-g7);
   font-weight: var(--wt-2);
 }
-
 
 /* 
 *************************
