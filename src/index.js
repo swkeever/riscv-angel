@@ -10,6 +10,10 @@ import MemoryPanel from './components/MemoryPanel'
 
 
 
+
+
+console.log('hi')
+
 ReactDOM.render(<RegisterPanel />, document.querySelector('#registerPanel'));
 ReactDOM.render(<InstructionPanel />, document.querySelector('#instructionPanel'));
 ReactDOM.render(<MemoryPanel />, document.querySelector('#memoryPanel'));
