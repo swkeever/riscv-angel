@@ -5,7 +5,6 @@ import useCPU from '../hooks/use-cpu';
 import Loader from './Loader';
 import ModuleHeader from './ModuleHeader';
 
-
 const RegisterPanel = () => {
   const [filter, setFilter] = useState('all');
 
