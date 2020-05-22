@@ -181,6 +181,7 @@ li.register-row {
   background: var(--color-g9);
   padding: var(--tiny-4) var(--sz-2);
   box-shadow: var(--shadow-2);
+  font-weight: var(--wt-4);
 }
 
 li.register-row:first-child {
@@ -190,6 +191,8 @@ li.register-row:first-child {
 li.register-row:last-child {
   padding-bottom: var(--sz-1);
 }
+
+
 
 li>span.register-abi {
   margin-left: var(--sz-1);
@@ -202,6 +205,13 @@ li>span.register-value {
   font-weight: var(--wt-4);
   font-family: var(--font-mono);
 }
+
+/* disabled colors */
+li>span.register-disabled {
+  color: var(--color-g7);
+  font-weight: var(--wt-2);
+}
+
 
 /* 
 *************************

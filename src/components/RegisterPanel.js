@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import getRegisters from '../utils/registers';
 import useCPU from '../hooks/use-cpu';
 import Loader from './Loader';
 import ModuleHeader from './ModuleHeader';
+
 
 const RegisterPanel = () => {
   const [filter, setFilter] = useState('all');
@@ -33,31 +35,27 @@ const RegisterPanel = () => {
   };
 
   const filteredRegisters = getFilteredRegisters();
-  const getClassName = (type) => (type === filter ? 'btn-active' : undefined);
+  const getButtonClass = (type) => (type === filter ? 'btn-active' : undefined);
+
+  const Button = ({ classifier }) => (
+    <button
+      className={getButtonClass(classifier)}
+      type="button"
+      onClick={() => setFilter(classifier)}
+    >
+      {classifier}
+    </button>
+  );
+
+  Button.propTypes = {
+    classifier: PropTypes.string.isRequired,
+  };
 
   const CurrentCategory = () => (
     <div className="btn-group" role="group">
-      <button
-        className={getClassName('callee-saved')}
-        type="button"
-        onClick={() => setFilter('callee-saved')}
-      >
-        Callee-saved
-      </button>
-      <button
-        className={getClassName('caller-saved')}
-        type="button"
-        onClick={() => setFilter('caller-saved')}
-      >
-        Caller-saved
-      </button>
-      <button
-        className={getClassName('all')}
-        type="button"
-        onClick={() => setFilter('all')}
-      >
-        All
-      </button>
+      <Button classifier="all" />
+      <Button classifier="caller-saved" />
+      <Button classifier="callee-saved" />
     </div>
   );
 
@@ -66,13 +64,17 @@ const RegisterPanel = () => {
       <ModuleHeader title="Registers" />
       <CurrentCategory />
       <ul className="register-list">
-        {filteredRegisters.map((r) => (
-          <li className="register-row" key={`reg-${r.abiName}`}>
-            <span className="register-name">{r.name}</span>
-            <span className="register-abi">{r.abiName}</span>
-            <span className="register-value">{`${(r.value >>> 0).toString(16)}`}</span>
-          </li>
-        ))}
+        {registersAppended.map((r) => {
+          const disabledClass = !filteredRegisters.includes(r) && 'register-disabled';
+
+          return (
+            <li className={`register-row ${disabledClass}`} key={`reg-${r.abiName}`}>
+              <span className={`register-name ${disabledClass}`}>{r.name}</span>
+              <span className={`register-abi ${disabledClass}`}>{r.abiName}</span>
+              <span className={`register-value ${disabledClass}`}>{`${(r.value >>> 0).toString(16)}`}</span>
+            </li>
+          );
+        })}
       </ul>
     </>
   );
