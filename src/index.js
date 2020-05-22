@@ -12,7 +12,8 @@ Chart.defaults.global.defaultFontFamily = styles.font;
 Chart.defaults.global.defaultFontColor = styles.color.g5;
 // console.log('size', parseInt(styles.sz1, 10));
 Chart.defaults.global.defaultFontSize = parseInt(styles.size[1], 10);
-Chart.defaults.global.aspectRatio = 3 / 2.22;
+Chart.defaults.global.aspectRatio = 3 / 2;
+Chart.defaults.global.responsive = true;
 
 ReactDOM.render(<RegisterPanel />, document.querySelector(REG_PANEL));
 ReactDOM.render(<InstructionPanel />, document.querySelector(INST_PANEL));

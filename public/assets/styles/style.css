@@ -81,17 +81,18 @@ body {
   background: var(--color-g8);
   font-family: var(--font);
   color: var(--color-g1);
+  border-top: var(--tiny-2) solid var(--color-p8);
   padding: var(--sz-7);
   display: grid;
   align-content: space-around;
   justify-content: center;
-  height: 70%;
+  height: 93vh;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   grid-template-rows: repeat(2, minmax(0, 1fr));
   grid-template-areas:
     "t t r"
     "i m r";
-  grid-gap: var(--sz-9);
+  grid-gap: var(--sz-7);
 }
 
 .terminal {
@@ -100,6 +101,8 @@ body {
   box-shadow: var(--shadow-2);
   background-color: var(--color-g9) !important;
   font-family: var(--font-mono);
+  font-size: var(--sz-3);
+  font-size: 0.88vw;
 }
 
 /* 
@@ -111,10 +114,14 @@ MEMORY PANEL
   grid-area: m;
 }
 
+#instructionPanel {
+  grid-area: i;
+}
+
 .canvas-container {
   background-color: var(--color-g9);
   box-shadow: var(--shadow-2);
-  padding: var(--sz-7) var(--sz-5);
+  padding: var(--sz-2);
   position: relative;
 }
 
@@ -173,22 +180,25 @@ ul.register-list {
   padding: 0;
   list-style: none;
   font-size: var(--sz-2);
+  display: flex;
+  flex-direction: column;
 }
 
 li.register-row {
+  justify-content: space-evenly;
   background: var(--color-g9);
-  padding: var(--tiny-4) var(--sz-2);
+  padding: var(--tiny-3) var(--sz-3);
   box-shadow: var(--shadow-2);
   font-weight: var(--wt-4);
 }
 
-li.register-row:first-child {
+/* li.register-row:first-child {
   padding-top: var(--sz-1);
 }
 
 li.register-row:last-child {
   padding-bottom: var(--sz-1);
-}
+} */
 
 li > span.register-abi {
   margin-left: var(--sz-1);
@@ -213,9 +223,6 @@ li > span.register-disabled {
 INSTRUCTION PANEL
 *************************
 */
-#instructionDisplay {
-  grid-area: i;
-}
 
 /* 
 Loader

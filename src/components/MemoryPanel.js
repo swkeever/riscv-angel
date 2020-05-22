@@ -16,10 +16,13 @@ const MemoryPanel = () => {
   /* this line chart graphs the last 10 data points we've seen,
      and updates the lower and upper bound of the range to be equal
      to the min and max of this dataset, respectively. */
-  const numData = 5;
+  const numData = 10;
 
   const graphData = {
-    labels: ['5', '4', '3', '2', '1'],
+    labels: Array(numData)
+      .fill()
+      .map((_, idx) => (idx + 1).toString())
+      .reverse(),
     datasets: [
       {
         fill: false, // fill area under line
@@ -40,7 +43,6 @@ const MemoryPanel = () => {
           type: 'line',
           data: graphData,
           options: {
-            responsive: true,
             legend: {
               display: false,
             },
