@@ -41,17 +41,6 @@
     "prettier": "^2.0.5",
     "react-scripts": "^3.4.1"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
-  "lint-staged": {
-    ".{js,json,css,html,md}": [
-      "npx prettier --write",
-      "npm run lint:fix-all"
-    ]
-  },
   "dependencies": {
     "chart.js": "^2.9.3",
     "d3": "^5.16.0",
@@ -72,5 +61,14 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.js": "eslint --cache --fix",
+    "*.{js,css,md}": "prettier --write"
   }
 }
