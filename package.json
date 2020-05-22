@@ -46,7 +46,7 @@
     }
   },
   "lint-staged": {
-    "./src/*.{js}": [
+    ".{js,json,css,html,md}": [
       "npx prettier --write",
       "npm run lint:fix-all"
     ]
