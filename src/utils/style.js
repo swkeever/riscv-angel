@@ -6,13 +6,17 @@
 // comments.
 const cssStyles = getComputedStyle(document.body);
 
-const styles = {};
+const styles = {
+  color: {},
+  size: {},
+  tiny: {},
+};
 for (let i = 1; i <= 9; i += 1) {
-  styles[`colorP${i}`] = cssStyles.getPropertyValue(`--color-p${i}`);
-  styles[`colorG${i}`] = cssStyles.getPropertyValue(`--color-g${i}`);
-  styles[`sz${i}`] = cssStyles.getPropertyValue(`--sz-${i}`);
+  styles.color[`p${i}`] = cssStyles.getPropertyValue(`--color-p${i}`);
+  styles.color[`g${i}`] = cssStyles.getPropertyValue(`--color-g${i}`);
+  styles.size[`${i}`] = cssStyles.getPropertyValue(`--sz-${i}`);
   if (i <= 4) {
-    styles[`tiny${i}`] = cssStyles.getPropertyValue(`--tiny-${i}`);
+    styles.tiny[`${i}`] = cssStyles.getPropertyValue(`--tiny-${i}`);
   }
 }
 
