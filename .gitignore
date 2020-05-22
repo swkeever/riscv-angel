@@ -17,3 +17,6 @@ node_modules/
 *.bbl
 *.bib
 *.blg
+
+# Generated
+.eslintcache
