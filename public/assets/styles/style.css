@@ -1,5 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap");
 
 :root {
   /* color system */
@@ -31,14 +31,9 @@
   --shadow-5: 0 15px 35px var(--color-g9);
 
   /* font family */
-  --font: -apple-system,
-    Segoe UI,
-    Roboto,
-    Noto Sans,
-    Ubuntu,
-    Cantarell,
+  --font: -apple-system, Segoe UI, Roboto, Noto Sans, Ubuntu, Cantarell,
     Helvetica Neue;
-  --font-mono: 'Roboto Mono', monospace;
+  --font-mono: "Roboto Mono", monospace;
   font-family: var(--font);
 
   /* spacing and sizing system */
@@ -76,6 +71,10 @@
   /* transitions */
   --tr-1: 0.1s;
   --tr-2: 0.2s;
+
+  --phone: 320px;
+  --tablet: 768px;
+  --desktop: 1024px;
 }
 
 body {
@@ -86,10 +85,10 @@ body {
   display: grid;
   align-content: space-around;
   justify-content: center;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: auto;
+  height: 70%;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-rows: repeat(2, minmax(0, 1fr));
   grid-template-areas:
-    "t t r"
     "t t r"
     "i m r";
   grid-gap: var(--sz-9);
@@ -112,7 +111,7 @@ MEMORY PANEL
   grid-area: m;
 }
 
-.mem-graph {
+.canvas-container {
   background-color: var(--color-g9);
   box-shadow: var(--shadow-2);
   padding: var(--sz-7) var(--sz-5);
@@ -144,7 +143,7 @@ REGISTER PANEL
   box-shadow: var(--shadow-2);
 }
 
-.btn-group>button {
+.btn-group > button {
   border: none;
   padding: var(--sz-3) 0;
   font-family: var(--font);
@@ -158,12 +157,12 @@ REGISTER PANEL
   color: var(--color-p3);
 }
 
-.btn-group>button:hover {
+.btn-group > button:hover {
   color: var(--color-p2);
   transition: var(--tr-1);
 }
 
-.btn-group>button.btn-active {
+.btn-group > button.btn-active {
   font-weight: var(--wt-4);
   color: var(--color-p1);
   border-bottom: var(--tiny-2) solid var(--color-p1);
@@ -191,12 +190,12 @@ li.register-row:last-child {
   padding-bottom: var(--sz-1);
 }
 
-li>span.register-abi {
+li > span.register-abi {
   margin-left: var(--sz-1);
   color: var(--color-g4);
 }
 
-li>span.register-value {
+li > span.register-value {
   float: right;
   color: var(--color-p2);
   font-weight: var(--wt-4);
@@ -204,7 +203,7 @@ li>span.register-value {
 }
 
 /* disabled colors */
-li>span.register-disabled {
+li > span.register-disabled {
   color: var(--color-g7);
   font-weight: var(--wt-2);
 }
@@ -216,54 +215,6 @@ INSTRUCTION PANEL
 */
 #instructionDisplay {
   grid-area: i;
-}
-
-text>tspan {
-  fill: var(--color-p1);
-  text-anchor: middle;
-  text-transform: uppercase;
-  font-weight: var(--wt-3);
-  letter-spacing: var(--tiny-2);
-  font-size: var(--sz-1);
-}
-
-g>path {
-  box-shadow: var(--shadow-5);
-}
-
-tspan.inst-pie-name {
-  text-shadow: var(--shadow-1);
-}
-
-tspan.inst-pie-percent {
-  fill: var(--color-p2);
-}
-
-svg.inst-pie {
-  background-color: var(--color-g9);
-  display: block;
-  padding: var(--sz-7) var(--sz-11);
-  box-shadow: var(--shadow-2);
-}
-
-.inst-pie-slice-0 {
-  fill: var(--color-p4);
-}
-
-.inst-pie-slice-1 {
-  fill: var(--color-p5);
-}
-
-.inst-pie-slice-2 {
-  fill: var(--color-p6);
-}
-
-.inst-pie-slice-3 {
-  fill: var(--color-p7);
-}
-
-.inst-pie-slice-4>path {
-  fill: var(--color-p8);
 }
 
 /* 
@@ -298,7 +249,7 @@ Source: https: //projects.lukehaas.me/css-loaders/
 .loader:after {
   position: absolute;
   top: 0;
-  content: '';
+  content: "";
 }
 
 .loader:before {
@@ -312,7 +263,6 @@ Source: https: //projects.lukehaas.me/css-loaders/
 }
 
 @-webkit-keyframes load1 {
-
   0%,
   80%,
   100% {
@@ -327,7 +277,6 @@ Source: https: //projects.lukehaas.me/css-loaders/
 }
 
 @keyframes load1 {
-
   0%,
   80%,
   100% {
