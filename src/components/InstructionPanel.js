@@ -28,9 +28,12 @@ export default function InstructionPanel() {
           options: {
             legend: {
               fontSize: styles.size[5],
+              position: 'bottom',
+              labels: {
+                padding: parseInt(styles.size[5], 10),
+              },
             },
-            tooltips: false,
-            responsive: true,
+            tooltips: true,
             rotation: Math.PI / 4,
           },
         }),
