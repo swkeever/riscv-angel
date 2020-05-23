@@ -96,8 +96,14 @@ body {
   gap: var(--sz-6);
 }
 
+.github-link {
+  opacity: 75%;
+
+  z-index: 9999;
+}
+
 .terminal {
-  padding: var(--sz-1);
+  padding: var(--sz-2);
   grid-area: t;
   box-shadow: var(--shadow-2);
   background-color: var(--color-g9) !important;
@@ -106,7 +112,9 @@ body {
   /* justify-self: center; */
   display: flex;
   flex-direction: column;
-  align-self: end;
+  align-self: center;
+  justify-content: center;
+  align-items: baseline;
   word-wrap: break-word;
   overflow: hidden;
 }
@@ -338,6 +346,12 @@ Source: https: //projects.lukehaas.me/css-loaders/
       "r";
   }
 
+  .github-link {
+    position: fixed;
+    top: var(--sz-1);
+    right: var(--sz-1);
+  }
+
   .btn-group > button {
     font-size: var(--tiny-4);
     line-height: var(--tiny-2);
@@ -360,11 +374,21 @@ Source: https: //projects.lukehaas.me/css-loaders/
 @media only screen and (min-width: 768px) {
   .terminal {
     font-size: var(--sz-1);
+    position: sticky;
+    top: var(--sz-6);
+    bottom: var(--sz-6);
+    align-self: flex-start;
+  }
+
+  .github-link {
+    position: fixed;
+    bottom: var(--sz-2);
+    left: var(--sz-2);
   }
 
   body {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    grid-template-rows: auto;
+    grid-template-rows: repeat(4, 1fr);
     grid-template-areas:
       "t i"
       "t m"
@@ -386,14 +410,17 @@ Source: https: //projects.lukehaas.me/css-loaders/
   body {
     /* height: 93vh; */
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    grid-template-rows: repeat(2, minmax(0.2fr, 0.5fr));
+    grid-template-rows: 1fr 0.5fr;
     grid-template-areas:
       "t t r"
       "i m r";
   }
 
   .terminal {
+    position: static;
+
     font-size: var(--sz-1);
+    /* height: 40vh; */
   }
 
   ul.register-list {
@@ -408,6 +435,11 @@ Source: https: //projects.lukehaas.me/css-loaders/
 /* large laptops and desktops */
 @media only screen and (min-width: 1200px) {
   body {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-rows: repeat(2, minmax(0.2fr, 0.5fr));
+    grid-template-areas:
+      "t t r"
+      "i m r";
     max-width: 1800px;
     /* height: 93vh; */
   }
