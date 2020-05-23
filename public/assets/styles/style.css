@@ -92,18 +92,8 @@ body {
   color: var(--color-g1);
   padding: var(--sz-7);
   display: grid;
-  /* justify-content: center; */
-  height: 93vh;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  grid-template-rows: repeat(2, minmax(0, 1fr));
-  grid-template-areas:
-    "t t r"
-    "i m r";
-  grid-gap: var(--sz-8);
-
-  max-width: 1525px;
-
   margin: auto;
+  gap: var(--sz-6);
 }
 
 .terminal {
@@ -116,7 +106,9 @@ body {
   /* justify-self: center; */
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  align-self: end;
+  word-wrap: break-word;
+  overflow: hidden;
 }
 
 /* 
@@ -206,6 +198,11 @@ li.register-row {
   box-shadow: var(--shadow-2);
   font-weight: var(--wt-4);
   position: relative;
+}
+
+li.register-row:nth-child(2n) {
+  /* TODO: alternate colors in list of registers? */
+  /* background-color: var(--color-p9); */
 }
 
 li.register-row:before {
@@ -330,9 +327,24 @@ Source: https: //projects.lukehaas.me/css-loaders/
 
 /* media queries */
 /* mobile */
-@media only screen and (min-width: 600px) {
-  .terminal {
+@media only screen and (max-width: 768px) {
+  body {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+    grid-template-rows: auto;
+    grid-template-areas:
+      "t"
+      "i"
+      "m"
+      "r";
+  }
+
+  .btn-group > button {
     font-size: var(--tiny-4);
+    line-height: var(--tiny-2);
+  }
+
+  .terminal {
+    font-size: var(--sz-1);
   }
 
   ul.register-list {
@@ -340,7 +352,7 @@ Source: https: //projects.lukehaas.me/css-loaders/
   }
 
   li.register-row {
-    padding: var(--tiny-1);
+    padding: var(--tiny-4) var(--sz-2);
   }
 }
 
@@ -348,6 +360,16 @@ Source: https: //projects.lukehaas.me/css-loaders/
 @media only screen and (min-width: 768px) {
   .terminal {
     font-size: var(--sz-1);
+  }
+
+  body {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: auto;
+    grid-template-areas:
+      "t i"
+      "t m"
+      "t r"
+      "t r";
   }
 
   ul.register-list {
@@ -361,6 +383,15 @@ Source: https: //projects.lukehaas.me/css-loaders/
 
 /* laptops/desktops */
 @media only screen and (min-width: 1024px) {
+  body {
+    /* height: 93vh; */
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-rows: repeat(2, minmax(0.2fr, 0.5fr));
+    grid-template-areas:
+      "t t r"
+      "i m r";
+  }
+
   .terminal {
     font-size: var(--sz-1);
   }
@@ -375,7 +406,12 @@ Source: https: //projects.lukehaas.me/css-loaders/
 }
 
 /* large laptops and desktops */
-@media only screen and (min-width: 1270px) {
+@media only screen and (min-width: 1200px) {
+  body {
+    max-width: 1800px;
+    /* height: 93vh; */
+  }
+
   .terminal {
     font-size: var(--sz-2);
   }
@@ -389,7 +425,7 @@ Source: https: //projects.lukehaas.me/css-loaders/
   }
 
   li.register-row {
-    padding: var(--tiny-2) var(--sz-4);
+    padding: var(--tiny-2) var(--sz-4) var(--tiny-4) var(--sz-4);
   }
 
   li.register-row:first-child {
