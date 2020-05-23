@@ -95,23 +95,10 @@ function sendCpuState() {
   if ((prevDump != null) && !hasUpdated(payloadData)) {
     return;
   }
-
-  const convertedValues = [];
-  for (var i = 0; i < RISCV.gen_reg.length; i++) {
-    convertedValues.push(((RISCV.gen_reg[i].toNumber()) >>> 0).toString(16))
-  }
-
-  const realPayload = {
-    registers: convertedValues,
-    instruction_amounts: instructionsArray,
-    totalInstructions: totalInstructions,
-    nonzeroMemoryTotal: num,
-    memoryTotal: RISCV.memory.length,
-  }
   
   const payload = {
     type: 'returnCpu',
-    d: JSON.stringify(realPayload),
+    d: JSON.stringify(payloadData),
   };
 
   this.postMessage(payload);

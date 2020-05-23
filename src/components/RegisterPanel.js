@@ -15,9 +15,10 @@ const RegisterPanel = () => {
   }
 
   const allRegisters = getRegisters();
+  console.log(cpu.registers);
 
   const registersAppended = cpu.registers.map((reg, i) => (
-    { ...allRegisters[i], value: reg.low_ }
+    { ...allRegisters[i], value: reg }
   ));
 
   const getFilteredRegisters = () => {
@@ -70,7 +71,7 @@ const RegisterPanel = () => {
             <li className={`register-row ${disabledClass}`} key={`reg-${r.abiName}`}>
               <span className={`register-name ${disabledClass}`}>{r.name}</span>
               <span className={`register-abi ${disabledClass}`}>{r.abiName}</span>
-              <span className={`register-value ${disabledClass}`}>{`${(r.value >>> 0).toString(16)}`}</span>
+              <span className={`register-value ${disabledClass}`}>{r.value}</span>
             </li>
           );
         })}
