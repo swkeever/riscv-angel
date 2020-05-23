@@ -1,8 +1,8 @@
 var myCpu;
 
 term = new Terminal({
-  cols: 100,
-  rows: 20,
+  cols: 80,
+  rows: 22,
   cursorBlink: true,
   useStyle: true,
 });
