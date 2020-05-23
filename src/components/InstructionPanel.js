@@ -61,15 +61,15 @@ export default function InstructionPanel() {
     values = values.fill(1 / values.length);
   }
 
+  const arcColors = instAmounts.map((_, idx) => styles.color[`p${idx + 3}`]);
+
   graphData = {
     datasets: [
       {
         data: values,
-        backgroundColor: instAmounts.map(
-          (_, idx) => styles.color[`p${idx + 3}`],
-        ),
+        backgroundColor: arcColors,
         borderColor: styles.color.g9,
-        hoverBackgroundColor: styles.color.p2,
+        hoverBackgroundColor: arcColors,
       },
     ],
 

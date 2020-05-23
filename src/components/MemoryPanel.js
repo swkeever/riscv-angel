@@ -28,7 +28,7 @@ const MemoryPanel = () => {
         fill: false, // fill area under line
         borderColor: styles.color.p4, // line color
         pointBackgroundColor: styles.color.p4, // point color
-        hoverBackgroundColor: styles.color.p3,
+        hoverBackgroundColor: styles.color.p2,
         data: numArray,
       },
     ],
