@@ -28,7 +28,7 @@ export default function InstructionPanel() {
           options: {
             legend: {
               fontSize: styles.size[5],
-              position: 'bottom',
+              position: 'left',
               labels: {
                 padding: parseInt(styles.size[5], 10),
               },

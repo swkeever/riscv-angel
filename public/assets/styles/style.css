@@ -66,33 +66,44 @@
   --tiny-1: 1px;
   --tiny-2: 2px;
   --tiny-3: 5px;
-  --tiny-4: 7px;
+  --tiny-4: 8px;
 
   /* transitions */
   --tr-1: 0.1s;
   --tr-2: 0.2s;
 
-  --phone: 320px;
-  --tablet: 768px;
-  --desktop: 1024px;
+  --sm: 600px;
+  --md: 768px;
+  --lg: 1024px;
+  --xl: 1200px;
+
+  /* interesting border around viewport,
+  but tricky to get right. */
+  /* outline-width: var(--tiny-4);
+    outline-style: solid;
+    outline-color: var(--color-p5);
+    outline-offset: calc(var(--tiny-4) * -1); */
+  /* border-bottom: var(--sz-10) solid var(--color-p5); */
 }
 
 body {
   background: var(--color-g8);
   font-family: var(--font);
   color: var(--color-g1);
-  border-top: var(--tiny-2) solid var(--color-p8);
   padding: var(--sz-7);
   display: grid;
-  align-content: space-around;
-  justify-content: center;
+  /* justify-content: center; */
   height: 93vh;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   grid-template-rows: repeat(2, minmax(0, 1fr));
   grid-template-areas:
     "t t r"
     "i m r";
-  grid-gap: var(--sz-7);
+  grid-gap: var(--sz-8);
+
+  max-width: 1525px;
+
+  margin: auto;
 }
 
 .terminal {
@@ -101,8 +112,11 @@ body {
   box-shadow: var(--shadow-2);
   background-color: var(--color-g9) !important;
   font-family: var(--font-mono);
-  font-size: var(--sz-3);
-  font-size: 0.88vw;
+  font-size: var(--sz-1);
+  /* justify-self: center; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 /* 
@@ -121,7 +135,7 @@ MEMORY PANEL
 .canvas-container {
   background-color: var(--color-g9);
   box-shadow: var(--shadow-2);
-  padding: var(--sz-2);
+  padding: var(--sz-4);
   position: relative;
 }
 
@@ -130,7 +144,7 @@ REGISTER PANEL
 *******************************/
 #registerPanel {
   grid-area: r;
-  margin-top: calc(var(--sz-4) * -1);
+  /* justify-self: center; */
 }
 
 .module-header {
@@ -182,10 +196,11 @@ ul.register-list {
   font-size: var(--sz-2);
   display: flex;
   flex-direction: column;
+  justify-content: space-evenly;
+  /* height: 20vh; */
 }
 
 li.register-row {
-  justify-content: space-evenly;
   background: var(--color-g9);
   padding: var(--tiny-3) var(--sz-3);
   box-shadow: var(--shadow-2);
@@ -310,5 +325,74 @@ Source: https: //projects.lukehaas.me/css-loaders/
   40% {
     box-shadow: 0 -2em;
     height: 5em;
+  }
+}
+
+/* media queries */
+/* mobile */
+@media only screen and (min-width: 600px) {
+  .terminal {
+    font-size: var(--tiny-4);
+  }
+
+  ul.register-list {
+    font-size: var(--sz-1);
+  }
+
+  li.register-row {
+    padding: var(--tiny-1);
+  }
+}
+
+/* tablets */
+@media only screen and (min-width: 768px) {
+  .terminal {
+    font-size: var(--sz-1);
+  }
+
+  ul.register-list {
+    font-size: var(--sz-1);
+  }
+
+  li.register-row {
+    padding: var(--tiny-2);
+  }
+}
+
+/* laptops/desktops */
+@media only screen and (min-width: 1024px) {
+  .terminal {
+    font-size: var(--sz-1);
+  }
+
+  ul.register-list {
+    font-size: var(--sz-2);
+  }
+
+  li.register-row {
+    padding: var(--tiny-3);
+  }
+}
+
+/* large laptops and desktops */
+@media only screen and (min-width: 1270px) {
+  .terminal {
+    font-size: var(--sz-2);
+  }
+
+  ul.register-list {
+    font-size: var(--sz-3);
+  }
+
+  #registerPanel {
+    /* margin-top: calc(var(--tiny-4) * -1); */
+  }
+
+  li.register-row {
+    padding: var(--tiny-2) var(--sz-4);
+  }
+
+  li.register-row:first-child {
+    padding-top: var(--tiny-4);
   }
 }
