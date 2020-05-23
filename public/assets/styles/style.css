@@ -190,6 +190,22 @@ li.register-row {
   padding: var(--tiny-3) var(--sz-3);
   box-shadow: var(--shadow-2);
   font-weight: var(--wt-4);
+  position: relative;
+}
+
+li.register-row:before {
+  content: "";
+  position: absolute;
+  left: 2.5%;
+  bottom: 0;
+  height: 1px;
+  width: 95%;
+  /* or 100px */
+  border-bottom: var(--tiny-1) solid var(--color-g8);
+}
+
+li.register-row:last-child:before {
+  border-bottom: 0 solid var(--color-g9);
 }
 
 /* li.register-row:first-child {
