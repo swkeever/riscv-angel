@@ -5,6 +5,8 @@ import useCPU from '../hooks/use-cpu';
 import Loader from './Loader';
 import ModuleHeader from './ModuleHeader';
 
+const { Uint64LE } = require('int64-buffer');
+
 const RegisterPanel = () => {
   const [filter, setFilter] = useState('all');
 
@@ -17,7 +19,10 @@ const RegisterPanel = () => {
   const allRegisters = getRegisters();
   console.log(cpu.registers);
 
-  const registersAppended = cpu.registers.map((reg, i) => (
+
+  const toBigInt = cpu.registers.map((val) => new Uint64LE(val).toString(16));
+
+  const registersAppended = toBigInt.map((reg, i) => (
     { ...allRegisters[i], value: reg }
   ));
 

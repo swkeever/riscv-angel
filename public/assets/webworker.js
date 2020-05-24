@@ -1,6 +1,8 @@
 // this code will run in a separate worker and interface with the run.html
 // page's DOM through message passing
 
+
+
 importScripts('./lib/closure-compiled/long.js');
 goog.require('goog.math.Long');
 
@@ -98,8 +100,10 @@ function sendCpuState() {
 
   const convertedValues = [];
   for (var i = 0; i < RISCV.gen_reg.length; i++) {
-    convertedValues.push(((RISCV.gen_reg[i].toNumber()) >>> 0).toString(16))
+    convertedValues.push(RISCV.gen_reg[i].toNumber());
+
   }
+  console.log(convertedValues);
 
   const realPayload = {
     registers: convertedValues,
