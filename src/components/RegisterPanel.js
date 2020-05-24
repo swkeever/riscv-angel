@@ -17,8 +17,6 @@ const RegisterPanel = () => {
   }
 
   const allRegisters = getRegisters();
-  console.log(cpu.registers);
-
 
   const toBigInt = cpu.registers.map((val) => new Uint64LE(val).toString(16));
 

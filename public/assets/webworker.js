@@ -103,7 +103,6 @@ function sendCpuState() {
     convertedValues.push(RISCV.gen_reg[i].toNumber());
 
   }
-  console.log(convertedValues);
 
   const realPayload = {
     registers: convertedValues,
