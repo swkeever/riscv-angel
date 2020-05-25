@@ -5,6 +5,8 @@ import useCPU from '../hooks/use-cpu';
 import Loader from './Loader';
 import ModuleHeader from './ModuleHeader';
 
+const { Uint64LE } = require('int64-buffer');
+
 const RegisterPanel = () => {
   const [filter, setFilter] = useState('all');
 
@@ -16,8 +18,10 @@ const RegisterPanel = () => {
 
   const allRegisters = getRegisters();
 
-  const registersAppended = cpu.registers.map((reg, i) => (
-    { ...allRegisters[i], value: reg.low_ }
+  const toBigInt = cpu.registers.map((val) => new Uint64LE(val).toString(16));
+
+  const registersAppended = toBigInt.map((reg, i) => (
+    { ...allRegisters[i], value: reg }
   ));
 
   const getFilteredRegisters = () => {
@@ -70,7 +74,7 @@ const RegisterPanel = () => {
             <li className={`register-row ${disabledClass}`} key={`reg-${r.abiName}`}>
               <span className={`register-name ${disabledClass}`}>{r.name}</span>
               <span className={`register-abi ${disabledClass}`}>{r.abiName}</span>
-              <span className={`register-value ${disabledClass}`}>{`${(r.value >>> 0).toString(16)}`}</span>
+              <span className={`register-value ${disabledClass}`}>{r.value}</span>
             </li>
           );
         })}
