@@ -16,7 +16,11 @@ Once NPM is installed, you can install the project dependencies with:
 npm install
 ```
 
-The project has been configured to work like [create-react-app](https://reactjs.org/docs/create-a-new-react-app.html). You can start a development server with:
+The project has been configured to work like [create-react-app](https://reactjs.org/docs/create-a-new-react-app.html).
+
+### How to run a dev server
+
+You can start a development server with:
 
 ```bash
 npm run start
@@ -33,7 +37,7 @@ npm run build
 ```
 
 This will create a `build/` directory.
-The server should use this directory to serve the site.
+The production server should use this directory to serve the site.
 
 ## Code style
 
