@@ -2,8 +2,7 @@
 
 ![Angel statue](public/assets/images/statue.jpg)
 
-*Photo by [Simon Birt](https://unsplash.com/@simonbirt).*
-
+_Photo by [Simon Birt](https://unsplash.com/@simonbirt)._
 
 This project is an extension of [riscv-angel](https://github.com/riscv/riscv-angel) containing additional UI features like showing the internal state of the OS and CPU in real time.
 
@@ -24,6 +23,17 @@ npm run start
 ```
 
 This should open your browser containing the project. Any changes you make in the code will automatically reload the browser.
+
+### How to build the site
+
+From the project root, run
+
+```bash
+npm run build
+```
+
+This will create a `build/` directory.
+The server should use this directory to serve the site.
 
 ## Code style
 
