@@ -96,6 +96,9 @@ const MemoryPanel = () => {
   return (
     <>
       <ModuleHeader title="Number of Non-zero Words" />
+      <p>
+        {`${(parseFloat(cpu.nonzeroMemoryTotal / cpu.memoryTotal) * 100).toFixed(2)} % `}
+      </p>
       <div className="canvas-container">
         <canvas id="myChart" ref={chartRef} />
       </div>
