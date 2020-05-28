@@ -13,8 +13,9 @@ function runWorker() {
     if (oEvent.data.type == "t") {
       term.write(String.fromCharCode(oEvent.data.d));
     } else if (oEvent.data.type === "returnCpu") {
+      console.log("cpu state received from webworker.js");
       myCpu = JSON.parse(oEvent.data.d);
-      //console.log('main thread setting myCpu');
+      console.log("myCpu:\n", myCpu);
     }
   };
 }

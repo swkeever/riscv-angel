@@ -98,6 +98,8 @@ function sendCpuState() {
     return;
   }
 
+  console.log("new cpu state detected, sending");
+
   const convertedValues = [];
   for (var i = 0; i < RISCV.gen_reg.length; i++) {
     convertedValues.push(RISCV.gen_reg[i].toNumber());
