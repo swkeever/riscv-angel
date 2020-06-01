@@ -30,14 +30,8 @@ This should open your browser containing the project. Any changes you make in th
 
 ### How to build the site
 
-From the project root, run
-
-```bash
-npm run build
-```
-
-This will create a `build/` directory.
-The production server should use this directory to serve the site.
+To run a local build, run `npm run build:localhost`.
+To run a production build (that uses the homepage URL specified in `package.json`), run `npm run build`.
 
 ## Code style
 
