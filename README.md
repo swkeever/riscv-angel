@@ -6,6 +6,8 @@ _Photo by [Simon Birt](https://unsplash.com/@simonbirt)._
 
 This project is an extension of [riscv-angel](https://github.com/riscv/riscv-angel) containing additional UI features like showing the internal state of the OS and CPU in real time.
 
+The project is live and can be found [here](swkeever.github.io/riscv-angel-extended).
+
 ## Setup
 
 First, make sure you have [NPM](https://www.npmjs.com/get-npm) installed.
@@ -32,7 +34,7 @@ This should open your browser containing the project. Any changes you make in th
 
 To run a local build, run `npm run build:localhost`.
 To run a production build (that uses the homepage URL specified in `package.json`), run `npm run build`.
-To deploy the app to Github Pages (`swkeever/github.io/riscv-angel-extended/`), run `npm run deploy`.
+To deploy the app to Github Pages ([swkeever.github.io/riscv-angel-extended](swkeever.github.io/riscv-angel-extended)), run `npm run deploy`.
 
 ## Code style
 
