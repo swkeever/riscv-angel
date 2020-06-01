@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "18ee1ea61b011d1620f89e1b847b9a05",
+    "revision": "bf4155726ed46704214370acfa3fdbfd",
     "url": "/riscv-angel-extended/index.html"
   },
   {
@@ -12,8 +12,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/riscv-angel-extended/static/js/2.1266c488.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "feccf2f4ba99fd09fcf2",
-    "url": "/riscv-angel-extended/static/js/main.2ec686e4.chunk.js"
+    "revision": "704c568a2b48034174c9",
+    "url": "/riscv-angel-extended/static/js/main.0ea575f4.chunk.js"
   },
   {
     "revision": "bd7f1cf154f09083682a",

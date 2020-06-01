@@ -132,6 +132,21 @@ MEMORY PANEL
   grid-area: i;
 }
 
+.memory-block {
+  position: relative;
+}
+
+.memory-pct {
+  position: absolute;
+  right: var(--sz-1);
+  top: var(--sz-2);
+  z-index: 50;
+  margin-top: var(--sz-2);
+  color: var(--color-p2);
+  font-family: var(--font-mono);
+  font-weight: var(--wt-4);
+}
+
 .canvas-container {
   background-color: var(--color-g9);
   box-shadow: var(--shadow-2);
