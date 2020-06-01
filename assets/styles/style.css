@@ -1,0 +1,466 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap");
+
+:root {
+  /* color system */
+  --color-g1: hsl(0, 0%, 95%);
+  --color-g2: hsl(0, 0%, 85%);
+  --color-g3: hsl(0, 0%, 70%);
+  --color-g4: hsl(0, 0%, 55%);
+  --color-g5: hsl(0, 0%, 45%);
+  --color-g6: hsl(0, 0%, 30%);
+  --color-g7: hsl(0, 0%, 25%);
+  --color-g8: hsl(0, 0%, 12%);
+  --color-g9: hsl(0, 0%, 5%);
+
+  --color-p-base: 240;
+  --color-p9: hsl(240, 95%, 5%);
+  --color-p8: hsl(240, 80%, 10%);
+  --color-p7: hsl(240, 64%, 23%);
+  --color-p6: hsl(240, 60%, 40%);
+  --color-p5: hsl(240, 50%, 50%);
+  --color-p4: hsl(240, 58%, 58%);
+  --color-p3: hsl(240, 72%, 72%);
+  --color-p2: hsl(240, 85%, 85%);
+  --color-p1: hsl(240, 95%, 95%);
+
+  --shadow-1: 0 1px 3px var(--color-g9);
+  --shadow-2: 0 4px 6px var(--color-g9);
+  --shadow-3: 0 5px 15px var(--color-g9);
+  --shadow-4: 0 10px 24px var(--color-g9);
+  --shadow-5: 0 15px 35px var(--color-g9);
+
+  /* font family */
+  --font: -apple-system, Segoe UI, Roboto, Noto Sans, Ubuntu, Cantarell,
+    Helvetica Neue;
+  --font-mono: "Roboto Mono", monospace;
+  font-family: var(--font);
+
+  /* spacing and sizing system */
+  --sz-1: 12px;
+  --sz-2: 14px;
+  --sz-3: 16px;
+  --sz-4: 18px;
+  --sz-5: 20px;
+  --sz-6: 24px;
+  --sz-7: 30px;
+  --sz-8: 36px;
+  --sz-9: 48px;
+  --sz-10: 60px;
+  --sz-11: 72px;
+
+  /* font weights */
+  --wt-1: 300;
+  --wt-2: 400;
+  --wt-3: 500;
+  --wt-4: 700;
+  --wt-5: 900;
+
+  /* line height */
+  --lh-1: 1;
+  --lh-2: 1.25;
+  --lh-3: 1.5;
+  --lh-4: 2;
+  line-height: var(--lh-2);
+
+  --tiny-1: 1px;
+  --tiny-2: 2px;
+  --tiny-3: 5px;
+  --tiny-4: 8px;
+
+  /* transitions */
+  --tr-1: 0.1s;
+  --tr-2: 0.2s;
+
+  --sm: 600px;
+  --md: 768px;
+  --lg: 1024px;
+  --xl: 1200px;
+
+  /* interesting border around viewport,
+  but tricky to get right. */
+  /* outline-width: var(--tiny-4);
+    outline-style: solid;
+    outline-color: var(--color-p5);
+    outline-offset: calc(var(--tiny-4) * -1); */
+  /* border-bottom: var(--sz-10) solid var(--color-p5); */
+}
+
+body {
+  background: var(--color-g8);
+  font-family: var(--font);
+  color: var(--color-g1);
+  padding: var(--sz-7);
+  display: grid;
+  margin: auto;
+  gap: var(--sz-6);
+}
+
+.github-link {
+  opacity: 75%;
+
+  z-index: 9999;
+}
+
+.terminal {
+  padding: var(--sz-2);
+  grid-area: t;
+  box-shadow: var(--shadow-2);
+  background-color: var(--color-g9) !important;
+  font-family: var(--font-mono);
+  font-size: var(--sz-1);
+  /* justify-self: center; */
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  justify-content: center;
+  align-items: baseline;
+  word-wrap: break-word;
+  overflow: hidden;
+}
+
+/* 
+*************************
+MEMORY PANEL
+*************************
+*/
+#memoryPanel {
+  grid-area: m;
+}
+
+#instructionPanel {
+  grid-area: i;
+}
+
+.canvas-container {
+  background-color: var(--color-g9);
+  box-shadow: var(--shadow-2);
+  padding: var(--sz-4);
+  position: relative;
+}
+
+/******************************
+REGISTER PANEL
+*******************************/
+#registerPanel {
+  grid-area: r;
+  /* justify-self: center; */
+}
+
+.module-header {
+  font-family: var(--font);
+  font-weight: var(--wt-3);
+  font-size: var(--sz-1);
+  letter-spacing: var(--tiny-2);
+  text-transform: uppercase;
+  color: var(--color-g2);
+  text-shadow: var(--shadow-1);
+}
+
+.btn-group {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  text-align: center;
+  box-shadow: var(--shadow-2);
+}
+
+.btn-group > button {
+  border: none;
+  padding: var(--sz-3) 0;
+  font-family: var(--font);
+  font-size: var(--sz-1);
+  line-height: var(--sz-2);
+  font-weight: var(--wt-3);
+  text-align: center;
+  letter-spacing: var(--tiny-1);
+  text-transform: uppercase;
+  background: var(--color-p5);
+  color: var(--color-p3);
+}
+
+.btn-group > button:hover {
+  color: var(--color-p2);
+  transition: var(--tr-1);
+}
+
+.btn-group > button.btn-active {
+  font-weight: var(--wt-4);
+  color: var(--color-p1);
+  border-bottom: var(--tiny-2) solid var(--color-p1);
+}
+
+ul.register-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: var(--sz-2);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  /* height: 20vh; */
+}
+
+li.register-row {
+  background: var(--color-g9);
+  padding: var(--tiny-3) var(--sz-3);
+  box-shadow: var(--shadow-2);
+  font-weight: var(--wt-4);
+  position: relative;
+}
+
+li.register-row:nth-child(2n) {
+  /* TODO: alternate colors in list of registers? */
+  /* background-color: var(--color-p9); */
+}
+
+li.register-row:before {
+  content: "";
+  position: absolute;
+  left: 2.5%;
+  bottom: 0;
+  height: 1px;
+  width: 95%;
+  /* or 100px */
+  border-bottom: var(--tiny-1) solid var(--color-g8);
+}
+
+li.register-row:last-child:before {
+  border-bottom: 0 solid var(--color-g9);
+}
+
+/* li.register-row:first-child {
+  padding-top: var(--sz-1);
+}
+
+li.register-row:last-child {
+  padding-bottom: var(--sz-1);
+} */
+
+li > span.register-abi {
+  margin-left: var(--sz-1);
+  color: var(--color-g4);
+}
+
+li > span.register-value {
+  float: right;
+  color: var(--color-p2);
+  font-weight: var(--wt-4);
+  font-family: var(--font-mono);
+}
+
+/* disabled colors */
+li > span.register-disabled {
+  color: var(--color-g7);
+  font-weight: var(--wt-2);
+}
+
+/* 
+*************************
+INSTRUCTION PANEL
+*************************
+*/
+
+/* 
+Loader
+
+Source: https: //projects.lukehaas.me/css-loaders/
+*/
+.loader,
+.loader:before,
+.loader:after {
+  background: var(--color-p1);
+  -webkit-animation: load1 1s infinite ease-in-out;
+  animation: load1 1s infinite ease-in-out;
+  width: 1em;
+  height: 4em;
+}
+
+.loader {
+  color: var(--color-p1);
+  text-indent: -9999em;
+  margin: 88px auto;
+  position: relative;
+  font-size: 11px;
+  -webkit-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-animation-delay: -0.16s;
+  animation-delay: -0.16s;
+}
+
+.loader:before,
+.loader:after {
+  position: absolute;
+  top: 0;
+  content: "";
+}
+
+.loader:before {
+  left: -1.5em;
+  -webkit-animation-delay: -0.32s;
+  animation-delay: -0.32s;
+}
+
+.loader:after {
+  left: 1.5em;
+}
+
+@-webkit-keyframes load1 {
+  0%,
+  80%,
+  100% {
+    box-shadow: 0 0;
+    height: 4em;
+  }
+
+  40% {
+    box-shadow: 0 -2em;
+    height: 5em;
+  }
+}
+
+@keyframes load1 {
+  0%,
+  80%,
+  100% {
+    box-shadow: 0 0;
+    height: 4em;
+  }
+
+  40% {
+    box-shadow: 0 -2em;
+    height: 5em;
+  }
+}
+
+/* media queries */
+/* mobile */
+@media only screen and (max-width: 768px) {
+  body {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+    grid-template-rows: auto;
+    grid-template-areas:
+      "t"
+      "i"
+      "m"
+      "r";
+  }
+
+  .github-link {
+    position: fixed;
+    top: var(--sz-1);
+    right: var(--sz-1);
+  }
+
+  .btn-group > button {
+    font-size: var(--tiny-4);
+    line-height: var(--tiny-2);
+  }
+
+  .terminal {
+    font-size: var(--sz-1);
+  }
+
+  ul.register-list {
+    font-size: var(--sz-1);
+  }
+
+  li.register-row {
+    padding: var(--tiny-4) var(--sz-2);
+  }
+}
+
+/* tablets */
+@media only screen and (min-width: 768px) {
+  .terminal {
+    font-size: var(--sz-1);
+    position: sticky;
+    top: var(--sz-6);
+    bottom: var(--sz-6);
+    align-self: flex-start;
+  }
+
+  .github-link {
+    position: fixed;
+    bottom: var(--sz-2);
+    left: var(--sz-2);
+  }
+
+  body {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: repeat(4, 1fr);
+    grid-template-areas:
+      "t i"
+      "t m"
+      "t r"
+      "t r";
+  }
+
+  ul.register-list {
+    font-size: var(--sz-1);
+  }
+
+  li.register-row {
+    padding: var(--tiny-2);
+  }
+}
+
+/* laptops/desktops */
+@media only screen and (min-width: 1024px) {
+  body {
+    /* height: 93vh; */
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-rows: 1fr 0.5fr;
+    grid-template-areas:
+      "t t r"
+      "i m r";
+  }
+
+  .terminal {
+    position: static;
+
+    font-size: var(--sz-1);
+    /* height: 40vh; */
+  }
+
+  ul.register-list {
+    font-size: var(--sz-2);
+  }
+
+  li.register-row {
+    padding: var(--tiny-3);
+  }
+}
+
+/* large laptops and desktops */
+@media only screen and (min-width: 1200px) {
+  body {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-rows: repeat(2, minmax(0.2fr, 0.5fr));
+    grid-template-areas:
+      "t t r"
+      "i m r";
+    max-width: 1800px;
+    /* height: 93vh; */
+  }
+
+  .terminal {
+    font-size: var(--sz-2);
+  }
+
+  ul.register-list {
+    font-size: var(--sz-3);
+  }
+
+  #registerPanel {
+    /* margin-top: calc(var(--tiny-4) * -1); */
+  }
+
+  li.register-row {
+    padding: var(--tiny-2) var(--sz-4) var(--tiny-4) var(--sz-4);
+  }
+
+  li.register-row:first-child {
+    padding-top: var(--tiny-4);
+  }
+}
