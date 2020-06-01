@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "adb916597cfa3784f5c91f4b263edfbf",
+    "revision": "1efe2bc503cd010f405f4a038840f4bd",
     "url": "/riscv-angel-extended/index.html"
   },
   {

@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/riscv-angel-extended/precache-manifest.eea18dc41fc4f5f9e2a0027806675cca.js"
+  "/riscv-angel-extended/precache-manifest.5eb336d9b61f29376f52d3fb27ca51cc.js"
 );
 
 self.addEventListener('message', (event) => {
