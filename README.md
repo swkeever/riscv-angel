@@ -32,6 +32,7 @@ This should open your browser containing the project. Any changes you make in th
 
 To run a local build, run `npm run build:localhost`.
 To run a production build (that uses the homepage URL specified in `package.json`), run `npm run build`.
+To deploy the app to Github Pages (`swkeever/github.io/riscv-angel-extended/`), run `npm run deploy`.
 
 ## Code style
 
