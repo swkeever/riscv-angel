@@ -1,10 +1,12 @@
 name: CI
 
-on: [push]
+on:
+  push:
+    branches:
+      - release
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     strategy:
@@ -20,5 +22,6 @@ jobs:
     - run: npm install
     - run: npm run build --if-present
     - run: npm run lint:all
+    - run: npm run deploy
       env:
         CI: true

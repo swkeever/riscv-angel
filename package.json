@@ -2,16 +2,20 @@
   "name": "riscv-angel-extended",
   "version": "1.0.0",
   "description": "riscv-angel-extended",
+  "homepage": "https://swkeever.github.io/riscv-angel-extended/",
   "main": "src/index.js",
   "directories": {
     "lib": "lib"
   },
   "scripts": {
-    "start": "bash scripts/instmacros.sh && react-scripts start",
-    "build": "react-scripts build",
+    "start": "bash scripts/instmacros.sh && PUBLIC_URL=/ react-scripts start",
+    "build": "bash scripts/instmacros.sh && react-scripts build",
+    "build:localhost": "bash scripts/instmacros.sh && PUBLIC_URL=/build react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "reinstall": "rm -rf node_modules && npm install",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
+    "reinstall": "rm package-lock.json; rm -rf node_modules && npm install",
     "lint": "./node_modules/.bin/eslint --no-error-on-unmatched-pattern",
     "lint:all": "./node_modules/.bin/eslint --no-error-on-unmatched-pattern src",
     "lint:fix": "./node_modules/.bin/eslint --no-error-on-unmatched-pattern --fix",
@@ -28,7 +32,6 @@
   "bugs": {
     "url": "https://github.com/swkeever/riscv-angel-extended/issues"
   },
-  "homepage": "",
   "devDependencies": {
     "eslint": "^6.8.0",
     "eslint-config-airbnb": "^18.1.0",
@@ -43,6 +46,7 @@
   },
   "dependencies": {
     "chart.js": "^2.9.3",
+    "gh-pages": "^3.0.0",
     "int64-buffer": "^0.99.1007",
     "lodash": "^4.17.15",
     "prop-types": "^15.7.2",
