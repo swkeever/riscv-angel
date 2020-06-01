@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.js": "/static/js/main.bde68afc.chunk.js",
-    "main.js.map": "/static/js/main.bde68afc.chunk.js.map",
-    "runtime-main.js": "/static/js/runtime-main.d5a93d17.js",
-    "runtime-main.js.map": "/static/js/runtime-main.d5a93d17.js.map",
-    "static/js/2.bc03c5e5.chunk.js": "/static/js/2.bc03c5e5.chunk.js",
-    "static/js/2.bc03c5e5.chunk.js.map": "/static/js/2.bc03c5e5.chunk.js.map",
-    "index.html": "/index.html",
-    "precache-manifest.4f744e69b527b5e4fe1790318a7133f1.js": "/precache-manifest.4f744e69b527b5e4fe1790318a7133f1.js",
-    "service-worker.js": "/service-worker.js",
-    "static/js/2.bc03c5e5.chunk.js.LICENSE.txt": "/static/js/2.bc03c5e5.chunk.js.LICENSE.txt"
+    "main.js": "/riscv-angel-extended/static/js/main.2ec686e4.chunk.js",
+    "main.js.map": "/riscv-angel-extended/static/js/main.2ec686e4.chunk.js.map",
+    "runtime-main.js": "/riscv-angel-extended/static/js/runtime-main.7a9ff3fd.js",
+    "runtime-main.js.map": "/riscv-angel-extended/static/js/runtime-main.7a9ff3fd.js.map",
+    "static/js/2.1266c488.chunk.js": "/riscv-angel-extended/static/js/2.1266c488.chunk.js",
+    "static/js/2.1266c488.chunk.js.map": "/riscv-angel-extended/static/js/2.1266c488.chunk.js.map",
+    "index.html": "/riscv-angel-extended/index.html",
+    "precache-manifest.eea18dc41fc4f5f9e2a0027806675cca.js": "/riscv-angel-extended/precache-manifest.eea18dc41fc4f5f9e2a0027806675cca.js",
+    "service-worker.js": "/riscv-angel-extended/service-worker.js",
+    "static/js/2.1266c488.chunk.js.LICENSE.txt": "/riscv-angel-extended/static/js/2.1266c488.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.d5a93d17.js",
-    "static/js/2.bc03c5e5.chunk.js",
-    "static/js/main.bde68afc.chunk.js"
+    "static/js/runtime-main.7a9ff3fd.js",
+    "static/js/2.1266c488.chunk.js",
+    "static/js/main.2ec686e4.chunk.js"
   ]
 }
