@@ -106,7 +106,8 @@
   but to allow a user to see what is going on inside the OS and CPU.
   To this end, our project aims to maximize availability to users by
   providing a browser-based interface that lets the user visit a webpage and
-  visualize an OS from the moment he or she visits the page.
+  visualize an OS from the moment he or she visits the page. We hope that this project
+  can grow to be an invaluable teaching tool for instructors, engineers, or anyone.
 \end{abstract}
 
 %-------------------------------------------------------------------------------
@@ -119,7 +120,7 @@ has the low-level emulation from C to JavaScript already handled. This way, we c
 focus on solving a new problem: providing an interface to
 visualize the OS and CPU.
 
-We looked at multiple different OS implementations and decided on risv-angel,
+We looked at multiple different OS implementations and decided on riscv-angel,
 which seemed to offer the
 functionality we needed without too much underlying complexity. This way, we could
 focus more attention to creating the visualization layers without having to worry
@@ -131,7 +132,7 @@ too much about the low-level emulation details.
 
 To start, we stripped the riscv-angel project to only show the Terminal.
 We got rid of all the elements and libraries that were not going to be used in our project.
-Before we started on our implementation, we prototyped the UI in Figma, shown in Figure \ref{fig:proto1}.
+Before we started on our implementation, we prototyped the UI in Figma, shown in Figure 1.
 
 \begin{figure}[H]
   \includegraphics[scale=0.4]{prototype1}
@@ -142,7 +143,9 @@ Before we started on our implementation, we prototyped the UI in Figma, shown in
 
 Figma allowed us to come up with a design before we implement anything in code.
 We aimed for a dashboard-like interface, showing the user
-information about the CPU and OS in real-time.
+information about the CPU and OS in real-time. The dashboard interface would
+allow the user to have all the information at his or her fingertips without
+having to constantly type commands to get the same information.
 
 %-------------------------------------------------------------------------------
 \section{Beginning Development}
@@ -185,17 +188,20 @@ in place in order to configure our CI easily.
 \subsection*{Choosing technologies}
 
 We want our interface to be interactive, so we chose React.js as our library of choice,
-which offers a means of rapidly developing interactive client-side applications.
+which offers a means of rapidly developing interactive client-side applications. React's
+rendering mechanism allows for changes in state to immediately update on the browser,
+which provides a user-friendly webpage.
 
 This doesn't come without its challenges, though. The existing project uses vanilla JavaScript
 in order to run the emulator. The legacy code accomplishes this by spawning a worker thread
 that handles all the emulation tasks. The main thread interacts with this worker thread via
-message passing.
+message passing. We will go into more detail about how this message passing functions.
 
 Working with the existing riscv-angel codebase was challenging. We resolved
 the issues by having rendering each dashboard component separately. This way,
 the dashboard components can coexist with the existing riscv-angel project code
-easily.
+easily. This allowed members to develop features in parallel, without being blocked
+by another person's pending change.
 
 
 %-------------------------------------------------------------------------------
@@ -262,21 +268,41 @@ $A$, another team member can be styling feature $B$. And since the components ar
 worrying about conflicting with another person's work.
 
 Finally, having the components act as modular entities allows us to change the layout of the UI very easily should
-we choose too. The components are simply independent building blocks that can be moved around as we please. This
+we choose too. The components are simply independent building blocks that can be moved around as we please.
+Component indepedence is very useful for debugging purposes as well, as if one specific component isn't behaving
+as intended, then a developer can isolate the problem to that component alone. This
 flexibility will become very important when it comes time to finalizing our app.
 
 \subsection*{Finishing our Prototype}
 
+There are two key files in the vanilla Javascript files that direct boot-up. Boot.js is run on start-up
+of the app and spawns a Webworker (webworker.js), which is a thread that will be running code given to it. This Webworker
+thread is in charge of actually computing instructions that will be passed in by boot.js. Once boot.js
+passes an insruction, webworker.js will load that instruction and execute it. It will then send the results of that
+instruction as a string to boot.js, which will then display the reuslts in the terminal.
+
+This exchange between webworker.js and boot.js is an example of how we use message passing
+to pass data between what's shown on the terminal and what is being run in the cpu. Message passing
+will be the core method of how results from running instructions will be displayed on the webpage.
+
 Information about the CPU state lives in the existing \texttt{riscv-angel} code, which is written in
-vanilla JavaScript. To pass information about the CPU to React, we bind a JavaScript object from the
+vanilla JavaScript. We bind a JavaScript object from the
 \texttt{riscv-angel} code
 to the globally accessible \texttt{window} object.
-
+To be specific, Webworker.js will send the state of the cpu to boot.js, which then binds that cpu state
+to the Window object, named as myCpu, which is globally accessible by the React code.
 We then create a custom React hook that safely retrieves this state to be used by React.
+To further optimize this message passing, webworker.js will only send a cpu state object to boot.js
+when the user is interacting with the terminal. If the terminal is idle, then no message will be passed.
+This is important to the speed and efficiency of our application, so that it is not slowed down
+by constant message passing when it doesn't have to happen.
 With the state of the CPU accessible in our React components, we could implement our
 dashboard.
 
-In our app, we show the contents of the 32 user registers,
+In our app, we show the contents of the 32 user registers, the ratio of CPU instructions executed,
+and a time series graph showing memory utilization. These are expressed as React components that are
+stored in RegisterPanel.js, InstructionPanel.js, and MemoryPanel.js. On boot-up, the application
+runs index.js, which renders each of the above components. First we will look at the register panel.
 
 % change this when we have a picture of the prototype
 \begin{figure}[H]
@@ -287,7 +313,25 @@ In our app, we show the contents of the 32 user registers,
 \end{figure}
 
 \noindent
-the ratio of CPU instructions executed,
+
+As Figure 3 shows, the register panel shows the register name, ABI name, and the state of
+each register. The register value will be displayed in 64bit Unsigned Hexadecimal.
+We partition the registers into three categories: All, callee-saved, and caller-saved.
+The react hook use-cpu will query for the latest cpu state from the Window object, and set the local
+cpu state to be equal to it, on an interval. One this new cpu state is fetched into the React scope,
+the register panel will re-render, and display the latest state of the registers. The following components
+will follow the same pattern of updating.
+
+The register panel is convenient for the user as all the information is contained in one location. The user
+is not forced to be in GDB mode and type commands to get the state of each register. When the cpu state changes,
+the register panel updates, so the user does not have to re-type his GDB command. The register panel also
+allows the user to validate the proper contents of a register. One future improvement idea is to introduce
+a GDB mode, where the user can GDB through programs and have relevant information automatically be
+shown on the webpage. The user can use our register panel to see the contents of important registers, such
+as ra, sp, etc. Finally, the register panel is helpful to a user who may not be in GDB mode as well.
+If a user is running a program, the user can can keep track of the stack pointer and make sure it stays
+within a relative area, as this could signify that the program is running as intended, and didn't drastically
+change as a result of overflow.
 
 % change this when we have a picture of the prototype
 \begin{figure}[H]
@@ -298,7 +342,17 @@ the ratio of CPU instructions executed,
 \end{figure}
 
 \noindent
-and a time series graph showing memory utilization
+
+Next is the instruction panel shown in Figure 4. The instruction panel shows a running average of four types of instructions:
+Arithmetic (ADDI, ANDI, etc), Control Transfer (JAL, JALR), Store (SW, SH, SB, etc), and Load. 
+This lets the user see the ratios of each type of instruction and offers 
+insight into what's happening beneath the surface. This information can be used by researchers or hardware engineers to
+optimize around this ratio. For example, if it looks like arithmetic instructions occur the most often, those developers can design
+hardware that prioritizes computation of those instructions over the other types. We actually found that the Memory Ordering 
+instructions occured the least, which was always less than 1\% of the total number of instructions being run. Since the ratio
+always stayed less than 1\%, we decided to omit graphing this type of instruction usage. Memory Ordering instructions are commonly
+used to order device I/O and memory accesses as viewed by hardware threads, and the base linux vm is being run on one process,
+which is why this type of instruction is barely used.
 
 % change this when we have a picture of the prototype
 \begin{figure}[H]
@@ -309,7 +363,19 @@ and a time series graph showing memory utilization
 \end{figure}
 
 \noindent
-We feel that this offers a useful feature set to get a glance at what is going on under the hood
+
+The memory panel in Figure 5 displays the number of nonzero words in the full memory region and shows the
+percentage of words that are not zero. The upper and lower bounds of the graph also dynamically change such that
+changes in nonzero word count are visible to the human eye. This is especially evident when the user creates, modifies,
+and deletes a file. This graph allows the user to see how much memory has been used, and how much memory is left in
+the operating system. This is a useful metric so a user will know if he or she has enough space left to download
+a file. As a user uses the terminal to create and edit a file, the upper trend of word usage that will stay constant in
+the graph is useful so the user can be aware on-the-fly of how much space is left. Finally, if the user wants to 
+attempt a risky deletion process (clearing out many unused directories), the graph will show a steep decline,
+as many bytes of memory will clear up on deletion. If the user accidently deletes something without intending to,
+this graph's steep drop will alert the user when otherwise the user may not know such deletion ocurred.
+
+We feel that this set of features offers a useful glance at what is going on under the hood
 of an operating system utilizing the RISC-V instruction set.
 
 % change this when we have a picture of the prototype
@@ -341,7 +407,16 @@ This project has a lot of room to grow. There are features still to be desired. 
 \begin{itemize}
   \item A way to see inside the file system
   \item A way to get information about running processes
+  \item An interactive GDB mode
 \end{itemize}
+
+One future goal is to bridge the gap between the vanilla Javascript files and our React code.
+Instead of message passing the state of the cpu every time there is an update, the ideal architecture
+would have the cpu code within the React scope, such as the cpu state changes, it causes
+the React components to re-render. Furthermore, if we are able to encompass a given OS binary
+into the React scope, a future goal is to allow any OS binary to be swapped with the base
+riscv linux vm. This will allow users more flexibility to see metrics on any operating system
+of their choosing.
 
 We feel our project provides a modular foundation for these features to be developed in the future.
 In hopes to reinvigorate life back into the riscv-angel project, we submitted a pull request
