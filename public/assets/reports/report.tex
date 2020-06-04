@@ -144,7 +144,7 @@ Before we started on our implementation, we prototyped the UI in Figma, shown in
 Figma allowed us to come up with a design before we implement anything in code.
 We aimed for a dashboard-like interface, showing the user
 information about the CPU and OS in real-time. The dashboard interface would
-allow the user to have all the information at his or her fingertips without
+allow the user to have all the information at his fingertips without
 having to constantly type commands to get the same information.
 
 %-------------------------------------------------------------------------------
@@ -190,7 +190,7 @@ in place in order to configure our CI easily.
 We want our interface to be interactive, so we chose React.js as our library of choice,
 which offers a means of rapidly developing interactive client-side applications. React's
 rendering mechanism allows for changes in state to immediately update on the browser,
-which provides a user-friendly webpage.
+which allowed us to quickly create interactive UI components.
 
 This doesn't come without its challenges, though. The existing project uses vanilla JavaScript
 in order to run the emulator. The legacy code accomplishes this by spawning a worker thread
@@ -249,6 +249,7 @@ basic OS and see properties about the OS and CPU in real time.
 Our modular design means we have separate components for each visualization in the dashboard.
 For example, there is a separate component for the window showing the registers, a separate
 component for the view showing the ratio of instructions being executed, and so forth.
+\pagebreak
 We split our app into modular components for several reasons:
 
 \begin{itemize}
@@ -268,20 +269,20 @@ $A$, another team member can be styling feature $B$. And since the components ar
 worrying about conflicting with another person's work.
 
 Finally, having the components act as modular entities allows us to change the layout of the UI very easily should
-we choose too. The components are simply independent building blocks that can be moved around as we please.
-Component indepedence is very useful for debugging purposes as well, as if one specific component isn't behaving
+we choose too. The components are independent building blocks that can be moved around as we please.
+Component independence is very useful for debugging purposes as well, as if one specific component isn't behaving
 as intended, then a developer can isolate the problem to that component alone. This
 flexibility will become very important when it comes time to finalizing our app.
 
 \subsection*{Finishing our Prototype}
 
-There are two key files in the vanilla Javascript files that direct boot-up. Boot.js is run on start-up
-of the app and spawns a Webworker (webworker.js), which is a thread that will be running code given to it. This Webworker
-thread is in charge of actually computing instructions that will be passed in by boot.js. Once boot.js
-passes an insruction, webworker.js will load that instruction and execute it. It will then send the results of that
-instruction as a string to boot.js, which will then display the reuslts in the terminal.
+There are two key files in the vanilla Javascript files that direct boot-up. \texttt{boot.js} is run on start-up
+of the app and spawns a Webworker (\texttt{webworker.js}), which is a thread that will be running code given to it. This Webworker
+thread is in charge of actually computing instructions that will be passed in by \texttt{boot.js}. Once \texttt{boot.js}
+passes an insruction, \texttt{webworker.js} will load that instruction and execute it. It will then send the results of that
+instruction as a string to \texttt{boot.js}, which will then display the reuslts in the terminal.
 
-This exchange between webworker.js and boot.js is an example of how we use message passing
+This exchange between \texttt{webworker.js} and \texttt{boot.js} is an example of how we use message passing
 to pass data between what's shown on the terminal and what is being run in the cpu. Message passing
 will be the core method of how results from running instructions will be displayed on the webpage.
 
@@ -289,10 +290,10 @@ Information about the CPU state lives in the existing \texttt{riscv-angel} code,
 vanilla JavaScript. We bind a JavaScript object from the
 \texttt{riscv-angel} code
 to the globally accessible \texttt{window} object.
-To be specific, Webworker.js will send the state of the cpu to boot.js, which then binds that cpu state
+To be specific, \texttt{webworker.js} will send the state of the cpu to \texttt{boot.js}, which then binds that cpu state
 to the Window object, named as myCpu, which is globally accessible by the React code.
 We then create a custom React hook that safely retrieves this state to be used by React.
-To further optimize this message passing, webworker.js will only send a cpu state object to boot.js
+To further optimize this message passing, \texttt{webworker.js} will only send a cpu state object to \texttt{boot.js}
 when the user is interacting with the terminal. If the terminal is idle, then no message will be passed.
 This is important to the speed and efficiency of our application, so that it is not slowed down
 by constant message passing when it doesn't have to happen.
@@ -314,10 +315,22 @@ runs index.js, which renders each of the above components. First we will look at
 
 \noindent
 
-As Figure 3 shows, the register panel shows the register name, ABI name, and the state of
-each register. The register value will be displayed in 64bit Unsigned Hexadecimal.
-We partition the registers into three categories: All, callee-saved, and caller-saved.
-The react hook use-cpu will query for the latest cpu state from the Window object, and set the local
+As Figure 3 shows, the register panel shows the:
+\begin{itemize}
+  \item register name
+  \item ABI name
+  \item state of each register
+\end{itemize}
+where the register value will be displayed in 64bit unsigned hexadecimal.
+\newpage
+We partition the registers into three categories:
+\begin{itemize}
+  \item all
+  \item callee-saved
+  \item caller-saved
+\end{itemize}
+
+The React hook use-cpu will query for the latest cpu state from the Window object, and set the local
 cpu state to be equal to it, on an interval. One this new cpu state is fetched into the React scope,
 the register panel will re-render, and display the latest state of the registers. The following components
 will follow the same pattern of updating.
